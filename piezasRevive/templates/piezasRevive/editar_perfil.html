@@ -1,0 +1,49 @@
+{% extends 'piezasRevive/base.html' %}
+{% load static %}
+
+{% block title %}Editar Perfil - Piezas Revive{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2 class="mb-4">Editar Perfil</h2>
+    <form method="post" action="{% url 'editar_perfil' %}" class="needs-validation" novalidate>
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <div class="mb-3">
+        <label for="{{ form.username.id_for_label }}">Nombre de usuario</label>
+        {{ form.username }}
+        <div class="invalid-feedback">
+          {{ form.username.errors.as_text }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="{{ form.email.id_for_label }}">Correo Electrónico</label>
+        {{ form.email }}
+        <div class="invalid-feedback">
+          {{ form.email.errors.as_text }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="{{ form.first_name.id_for_label }}">Nombre</label>
+        {{ form.first_name }}
+        <div class="invalid-feedback">
+          {{ form.first_name.errors.as_text }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="{{ form.last_name.id_for_label }}">Apellidos</label>
+        {{ form.last_name }}
+        <div class="invalid-feedback">
+          {{ form.last_name.errors.as_text }}
+        </div>
+      </div>
+
+
+      <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    </form>
+  </div>
+{% endblock %}

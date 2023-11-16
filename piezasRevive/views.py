@@ -1,14 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
-from .forms import RegistroUsuarioForm, CorreoElectronicoAuthenticationForm
-from django.contrib.auth.models import User
+from .forms import RegistroUsuarioForm, CorreoElectronicoAuthenticationForm, EditarPerfilForm 
 from django.http import JsonResponse
-import logging
-
-logger = logging.getLogger(__name__)
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 def index(request):
     return render(request, 'piezasRevive/index.html')
@@ -19,11 +15,12 @@ def register_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
+            messages.success(request, '¡Registro exitoso!')
             return redirect('login')
     else:
         form = RegistroUsuarioForm()
-    return render(request, 'piezasRevive/register.html', {'form': form})
 
+    return render(request, 'piezasRevive/register.html', {'form': form})
 
 
 def login_view(request):
@@ -45,9 +42,28 @@ def login_view(request):
 
 
 
+@login_required
 def logout_view(request):
     if request.method == 'POST':
         logout(request)
+        messages.success(request, '¡Deslogeo exitoso!')
         return JsonResponse({'success': True})
     else:
         return JsonResponse({'success': False})
+
+
+def editar_perfil(request):
+    if not request.user.is_authenticated:
+        messages.error(request, '¡Debe estar logeado!', extra_tags='timer_duration:3000') 
+        return redirect('login')
+
+    if request.method == 'POST':
+        form = EditarPerfilForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Perfil actualizado exitosamente.')
+            return redirect('index')
+    else:
+        form = EditarPerfilForm(instance=request.user)
+
+    return render(request, 'piezasRevive/editar_perfil.html', {'form': form})

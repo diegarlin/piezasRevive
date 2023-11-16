@@ -6,8 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Título por defecto{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'piezasRevive/css/styles.css' %}">
     <link rel="icon" type="image/png" href="{% static 'piezasRevive/images/logo.png' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'piezasRevive/css/styles.css' %}">
 </head>
 <body>
 
@@ -20,7 +22,7 @@
             <div class="button-container">
                 {% if user.is_authenticated %}
                     <button class="logout-button" onclick="logout()">Logout</button>
-                    <span class="username">{{ user.first_name }}{{ user.last_name }}</span>
+                    <a href="/edit"><span class="username">{{ user.first_name }} {{ user.last_name }}</span></a>
                 {% else %}
                     <a href="/login"><button class="login-button">Login</button></a>
                     <a href="/register"><button class="register-button">Registro</button></a>
@@ -28,6 +30,24 @@
             </div>
         </div>
     </header>
+
+    {% if messages %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            {% for message in messages %}
+                var iconType = '{% if message.tags == "success" %}success{% elif message.tags == "info" %}info{% elif message.tags == "warning" %}warning{% elif message.tags == "error" %}error{% else %}info{% endif %}';
+                var timerDuration = {{ message.extra_tags.timer_duration|default:2000 }}; 
+                // Muestra la alerta por cada mensaje
+                Swal.fire({
+                    icon: iconType,
+                    text: '{{ message }}',
+                    showConfirmButton: false,
+                    timer: timerDuration 
+                });
+            {% endfor %}
+        });
+    </script>
+    {% endif %}
 
     <main>
         {% block content %}{% endblock %}
@@ -69,8 +89,8 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Recargar la página después del logout exitoso
-                    window.location.reload();
+                    // Redirigir a la página de inicio después del logout exitoso
+                    window.location.href = '/';
                 } else {
                     console.error('Error al cerrar sesión');
                 }
@@ -92,7 +112,7 @@
             }
             return cookieValue;
         }
-        </script>      
+    </script>
 
 </body>
 </html>
