@@ -1,4 +1,3 @@
-<!-- base.html -->
 {% load static %}
 
 <!DOCTYPE html>
@@ -7,7 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Título por defecto{% endblock %}</title>
-    <!-- Agrega aquí tus enlaces a CSS, JavaScript, etc. -->
     <link rel="stylesheet" type="text/css" href="{% static 'piezasRevive/css/styles.css' %}">
     <link rel="icon" type="image/png" href="{% static 'piezasRevive/images/logo.png' %}">
 </head>
@@ -20,8 +18,12 @@
                 <a href="/"><span class="company-name">PiezasRevive</span></a>
             </div>
             <div class="button-container">
-                <a href="/login"><button class="login-button">Login</button></a>
-                <a href="/register"><button class="register-button">Registro</button></a>
+                {% if user.is_authenticated %}
+                    <button class="logout-button" onclick="logout()">Logout</button>
+                {% else %}
+                    <a href="/login"><button class="login-button">Login</button></a>
+                    <a href="/register"><button class="register-button">Registro</button></a>
+                {% endif %}
             </div>
         </div>
     </header>
@@ -52,7 +54,44 @@
         </div>
     </footer>
 
-    <!-- Agrega aquí tus enlaces a scripts JavaScript, etc. -->
+    <script>
+        function logout() {
+            var csrftoken = getCookie('csrftoken');
+            
+            fetch('/logout/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Recargar la página después del logout exitoso
+                    window.location.reload();
+                } else {
+                    console.error('Error al cerrar sesión');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+        
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        </script>      
 
 </body>
 </html>

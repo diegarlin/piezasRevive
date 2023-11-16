@@ -5,10 +5,9 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from .forms import RegistroUsuarioForm, CorreoElectronicoAuthenticationForm
 from django.contrib.auth.models import User
+from django.http import JsonResponse
 
 def index(request):
-    imagen_path = 'piezasRevive/images/fondo.jpg'
-
     return render(request, 'piezasRevive/index.html')
 
 def register_view(request):
@@ -43,4 +42,6 @@ def login_view(request):
 def logout_view(request):
     if request.method == 'POST':
         logout(request)
-        return redirect('login')  # Cambia 'login' al nombre de tu vista de inicio de sesión
+        return JsonResponse({'success': True})
+    else:
+        return JsonResponse({'success': False})
