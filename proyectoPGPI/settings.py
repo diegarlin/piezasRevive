@@ -52,6 +52,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'proyectoPGPI.urls'
 
+AUTHENTICATION_BACKENDS = ['piezasRevive.backends.EmailBackend']
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
