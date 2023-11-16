@@ -19,7 +19,7 @@ class RegistroUsuarioForm(UserCreationForm):
         fields = ['username', 'email', 'first_name', 'last_name', 'password1', 'password2']
 
 class CorreoElectronicoAuthenticationForm(AuthenticationForm):
-    username = forms.EmailField(widget=forms.TextInput(attrs={'autofocus': True}))
+    username = forms.EmailField(widget=forms.TextInput(attrs={'autofocus': True}), label="Email")
 
     class Meta:
         model = get_user_model()

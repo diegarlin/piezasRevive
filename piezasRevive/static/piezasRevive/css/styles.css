@@ -36,6 +36,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
 }
 
 .logo-container {
@@ -58,10 +59,16 @@ header {
 .button-container {
     display: flex;
     align-items: center;
+    padding-right: 3vh;
+}
+
+.username {
+    margin-right: 10px; /* Ajusta el margen entre el nombre de usuario y los botones */
 }
 
 .login-button,
-.register-button {
+.register-button,
+.logout-button {
     border: none;
     cursor: pointer;
     padding: 10px 25px;
@@ -78,6 +85,11 @@ header {
 
 .register-button {
     background-color: #393E46;
+    color: #EEEEEE;
+}
+
+.logout-button {
+    background-color: #00ADB5;
     color: #EEEEEE;
 }
 

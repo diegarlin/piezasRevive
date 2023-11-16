@@ -1,7 +1,6 @@
 {% extends 'piezasRevive/base.html' %}
 {% load static %}
 
-
 {% block title %}Piezas Revive{% endblock %}
 
 {% block content %}
@@ -9,7 +8,12 @@
 <h2 class="mb-4">Login</h2>
 <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form.username.label_tag }} {# Esto mostrará la etiqueta del campo username #}
+    {{ form.username }} {# Esto mostrará el campo username #}
+    <br>
+    {{ form.password.label_tag }} {# Esto mostrará la etiqueta del campo password #}
+    {{ form.password }} {# Esto mostrará el campo password #}
+    <br>
     <button type="submit">Login</button>
 </form>
 
