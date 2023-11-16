@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 def index(request):
     imagen_path = 'piezasRevive/images/fondo.jpg'
 
-    return render(request, 'piezasRevive/index.html', {'imagen_path': imagen_path})
+    return render(request, 'piezasRevive/index.html')
 
 def register_view(request):
     if request.method == 'POST':
@@ -17,7 +17,7 @@ def register_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('index')
+            return redirect('login')
     else:
         form = RegistroUsuarioForm()
     return render(request, 'piezasRevive/register.html', {'form': form})

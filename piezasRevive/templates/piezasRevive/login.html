@@ -1,6 +1,16 @@
-<h2>Login</h2>
+{% extends 'piezasRevive/base.html' %}
+{% load static %}
+
+
+{% block title %}Piezas Revive{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">Login</h2>
 <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Login</button>
 </form>
+
+{% endblock %}

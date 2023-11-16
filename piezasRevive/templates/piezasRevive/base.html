@@ -1,0 +1,58 @@
+<!-- base.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Título por defecto{% endblock %}</title>
+    <!-- Agrega aquí tus enlaces a CSS, JavaScript, etc. -->
+    <link rel="stylesheet" type="text/css" href="{% static 'piezasRevive/css/styles.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'piezasRevive/images/logo.png' %}">
+</head>
+<body>
+
+    <header class="fixed-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <a href="/"><img src="{% static 'piezasRevive/images/logo.png' %}" alt="Logo" class="logo"></a>
+                <a href="/"><span class="company-name">PiezasRevive</span></a>
+            </div>
+            <div class="button-container">
+                <a href="/login"><button class="login-button">Login</button></a>
+                <a href="/register"><button class="register-button">Registro</button></a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+        <!-- Este bloque será reemplazado por el contenido específico de cada página -->
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="company-info">
+                <h3>Información de la Empresa</h3>
+                <p>PIEZAS REVIVE S.L.</p>
+                <p>Dirección: Calle Principal, 123</p>
+                <p>Teléfono: 123-456-789</p>
+                <p>Email: info@piezasrevive.com</p>
+            </div>
+            <div class="social-media">
+                <h3>Redes Sociales</h3>
+                <a href="#" target="_blank">Facebook</a>
+                <a href="#" target="_blank">Twitter</a>
+                <a href="#" target="_blank">Instagram</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 PiezasRevive S.L. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Agrega aquí tus enlaces a scripts JavaScript, etc. -->
+
+</body>
+</html>
