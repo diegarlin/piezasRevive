@@ -189,3 +189,28 @@ h2.mb-4{
     font-weight: bold;
     text-align: center;
 }
+
+.invalid-feedback {
+    color: #dc3545; /* Color rojo que utiliza Bootstrap por defecto */
+    font-size: 0.9rem;
+    margin-top: 5px;
+  }
+
+.error-message {
+    display: block;
+    margin-top: 5px;
+    color: #dc3545;
+    font-size: 0.9rem;
+  }
+
+ul.errorlist.nonfield {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    color: #dc3545; /* Color rojo similar al de Bootstrap */
+    font-size: 0.9rem;
+  }
+
+ul.errorlist.nonfield li {
+    margin-bottom: 5px;
+  }

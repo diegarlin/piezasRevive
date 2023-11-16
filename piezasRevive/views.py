@@ -6,6 +6,9 @@ from django.contrib.auth import login, logout, authenticate
 from .forms import RegistroUsuarioForm, CorreoElectronicoAuthenticationForm
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+import logging
+
+logger = logging.getLogger(__name__)
 
 def index(request):
     return render(request, 'piezasRevive/index.html')
@@ -32,11 +35,14 @@ def login_view(request):
             user = authenticate(request, username=email, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('index')
+                return redirect('index') 
     else:
+        if request.user.is_authenticated:
+            return redirect('index')
         form = CorreoElectronicoAuthenticationForm()
 
     return render(request, 'piezasRevive/login.html', {'form': form})
+
 
 
 def logout_view(request):

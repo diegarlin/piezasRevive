@@ -6,13 +6,20 @@
 {% block content %}
 
 <h2 class="mb-4">Login</h2>
-<form method="post" action="{% url 'login' %}">
+<form method="post" action="{% url 'login' %}" class="needs-validation" novalidate>
     {% csrf_token %}
+    {{ form.non_field_errors }}
     {{ form.username.label_tag }} {# Esto mostrará la etiqueta del campo username #}
     {{ form.username }} {# Esto mostrará el campo username #}
+    <div class="invalid-feedback">
+        {{ form.username.errors.as_text }}
+      </div>
     <br>
     {{ form.password.label_tag }} {# Esto mostrará la etiqueta del campo password #}
     {{ form.password }} {# Esto mostrará el campo password #}
+    <div class="invalid-feedback">
+        {{ form.password.errors.as_text }}
+      </div>
     <br>
     <button type="submit">Login</button>
 </form>
