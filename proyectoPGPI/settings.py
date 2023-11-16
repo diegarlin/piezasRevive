@@ -38,6 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "piezasRevive",
+    'producto',
+    'carrito',
+    'pedido',
+    'opinion',
+    'reclamaciones',
 ]
 
 MIDDLEWARE = [
