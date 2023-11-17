@@ -9,21 +9,33 @@ from django.views.decorators.csrf import csrf_exempt
 
 from producto.models import Producto
 
+Categorias = ('Interior',
+    'Direccion',
+    'Embrague',
+    'Motor',
+    'Freno',
+    'Alumbrado',
+    'Carroceria')
+
+Marcas = ('Seat',
+    'Audi',
+    'Toyota',
+    'Mini',
+    'Honda',
+    'Fiat')
+
 # Create your views here.
 @login_required
 def product(request):
-    
-    categorias = Producto.categoria.objects.all()
-    marcas = Producto.marca.objects.all()
-
     nombre_de_producto_buscado = request.GET.get("name")
-    categoria_buscada = request.GET.get("category")
-    marca_buscada = request.GET.get("brand")
+    categoria_buscada = request.GET.get("categoria")
+    marca_buscada = request.GET.get("marca")
+    print(marca_buscada)
 
     lista_tuplas_productos = get_products_by_tuples(nombre_de_producto_buscado, categoria_buscada, marca_buscada)
-    modelmap = {'productos':lista_tuplas_productos, 
-                'categorias':categorias,
-                'marcas':marcas}
+    modelmap = {'tupla_producto':lista_tuplas_productos, 
+                'categorias':Categorias,
+                'marcas':Marcas}
     return render(request, 'producto/producto.html', modelmap)
 
 def get_products_by_tuples(nombre_de_producto_buscado=None, categoria_buscada=None, marca_buscada=None):
@@ -37,13 +49,14 @@ def get_products_by_tuples(nombre_de_producto_buscado=None, categoria_buscada=No
         if nombre_de_producto_buscado is not None:
             nombre_de_producto_buscado_valido = producto.nombre.lower() == nombre_de_producto_buscado.replace("+"," ").lower()
         if categoria_buscada is not None:
-            categoria_valida = producto.categoria == Producto.categoria.objects.get(id__exact = categoria_buscada)
+            print(categoria_buscada)
+            categoria_valida = producto.categoria.lower() == categoria_buscada.lower()
         if marca_buscada is not None:
-            marca_valida = producto.marca == Producto.marca.objects.get(id__exact = marca_buscada)
+            print(marca_buscada)
+            marca_valida = producto.marca.lower() == marca_buscada.lower()
         if categoria_valida and marca_valida and nombre_de_producto_buscado_valido:
             productos.append(producto)
             
-    
     lista_tuplas_productos = []
     for i in range(0, len(productos), 2):
         lista_tuplas_productos.append(tuple(productos[i:i+2]))
@@ -51,8 +64,8 @@ def get_products_by_tuples(nombre_de_producto_buscado=None, categoria_buscada=No
 
 
 @login_required
-def detalles(request, producto_id):
-    producto = Producto.objects.get(id=producto_id)
+def detalles(request, product_id):
+    producto = Producto.objects.get(id=product_id)
     form = {"producto":producto}
     
     return render(request, 'producto/productoDetalles.html', {'form': form})

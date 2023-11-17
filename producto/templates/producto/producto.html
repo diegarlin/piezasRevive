@@ -7,37 +7,50 @@
 {% block title %}Piezas Revive{% endblock %}
 
 {% block content %}
-
-<!doctype html>
-<html lang="es"> 
-  
-  <body>
-    {% if message %}
-    <div class="alert alert-success" role="alert">
-      {{message}}  
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    
-    {% endif %}
-    {% if user.is_authenticated %}
-   
-{% endif %}
-    
-    
+      
 <main>
 
+  <div class="row bg-dark">
+    <div class="col-md-1"></div>
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-4">
+                <select class="form-select" aria-label="Selecciona un género" id="categorias" form="productfilter"
+                    name="categoria" style="width: 100%;">
+                    <option selected disabled>Selecciona una categoria</option>
+                    {% for categoria in categorias %}
+                    <option value="{{categoria}}">{{categoria}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select class="form-select" aria-label="Selecciona un sección" id="marcas" form="productfilter"
+                    name="marca" style="width: 100%;">
+                    <option selected disabled>Selecciona una marca</option>
+                    {% for marca in marcas %}
+                    <option value="{{marca}}">{{marca}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <form action="/product/" method="GET" id="productfilter">
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </form>
+    </div>
+</div>
+
   <div class="container text-center">
-    {% for trio in trios_productos %}
+    {% for productos in tupla_producto %}
     <div class="row">
-        {% for producto in trio %}
+        {% for producto in productos %}
         <div class="col-12 col-md-4 text-center">
             <div class="card" style="max-height: fit-content; max-width: fit-content;">
                 <img src={{producto.imagen}} class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">
-                        <a href="/products/{{producto.id}}">
+                        <a href="/product/details/{{producto.id}}">
                             {{producto.nombre}}
                         </a>
                     </h5>
@@ -48,12 +61,14 @@
                         <p class="card-text">{{producto.seccion.nombre}}</p>
                     -->
                     {% if producto.stock > 0 %}
+                    <!--
                     <form action="/addproduct/{{producto.id}}" method="GET" id="add_product">
                         <input type="number" min="1" max="{{producto.stock}}" id="amount"
                             name="amount" placeholder="Selecciona una cantidad:" style="width: 50%;">
                         <button type="submit" href="#" class="btn btn-primary">+ <i
                                 class="fas fa-shopping-basket"></i></button>
                     </form>
+                    -->
                     {% else %}
                     <span style="background-color: red; border-radius: 5%; color: white; min-width: 200%;">SIN STOCK</span>
                     {% endif %}
@@ -70,11 +85,6 @@
 </main>
 
 
-      
-  </body>
-  
-  <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-</html>
 
 {% endblock %}
 
