@@ -14,7 +14,6 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh; /* Al menos el 100% de la altura del viewport */
-    padding-top: 5vh;
 }
 
 header {
@@ -140,7 +139,8 @@ a:hover {
 main {
     flex: 1; /* Ocupa el espacio restante */
     background-color: #EEEEEE; /* Fondo para el contenido principal */
-    padding: 20px;
+    padding-top: 7.5vh;
+    padding-bottom: 2vh;
 }
 
 h2 {

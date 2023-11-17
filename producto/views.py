@@ -5,15 +5,50 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
+
+
 from producto.models import Producto
 
 # Create your views here.
 @login_required
 def product(request):
-    productos = Producto.objects.all()
-    form = {"productos":productos, "index":1}
     
-    return render(request, 'producto/producto.html', {'form': form})
+    categorias = Producto.categoria.objects.all()
+    marcas = Producto.marca.objects.all()
+
+    nombre_de_producto_buscado = request.GET.get("name")
+    categoria_buscada = request.GET.get("category")
+    marca_buscada = request.GET.get("brand")
+
+    lista_tuplas_productos = get_products_by_tuples(nombre_de_producto_buscado, categoria_buscada, marca_buscada)
+    modelmap = {'productos':lista_tuplas_productos, 
+                'categorias':categorias,
+                'marcas':marcas}
+    return render(request, 'producto/producto.html', modelmap)
+
+def get_products_by_tuples(nombre_de_producto_buscado=None, categoria_buscada=None, marca_buscada=None):
+    productos = []
+    productos_todos = Producto.objects.all()
+    for producto in productos_todos:
+        categoria_valida = True
+        marca_valida = True
+        nombre_de_producto_buscado_valido = True
+
+        if nombre_de_producto_buscado is not None:
+            nombre_de_producto_buscado_valido = producto.nombre.lower() == nombre_de_producto_buscado.replace("+"," ").lower()
+        if categoria_buscada is not None:
+            categoria_valida = producto.categoria == Producto.categoria.objects.get(id__exact = categoria_buscada)
+        if marca_buscada is not None:
+            marca_valida = producto.marca == Producto.marca.objects.get(id__exact = marca_buscada)
+        if categoria_valida and marca_valida and nombre_de_producto_buscado_valido:
+            productos.append(producto)
+            
+    
+    lista_tuplas_productos = []
+    for i in range(0, len(productos), 2):
+        lista_tuplas_productos.append(tuple(productos[i:i+2]))
+    return lista_tuplas_productos
+
 
 @login_required
 def detalles(request, producto_id):

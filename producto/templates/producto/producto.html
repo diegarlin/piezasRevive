@@ -28,62 +28,45 @@
     
 <main>
 
-  <div class="album py-5 bg-light">
-    <div class="container">
-
-      {% if messages %}
-        {% for message in messages %}
-                <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}</div>
-        {% endfor %}
-      {% endif %}
-      
-
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        {% for producto in productos %}
-        <div class="col-lg-4">
-          <div class="card shadow-sm my-2">
-            <a href="{% url 'detalles' producto.id %}"><img class="bd-placeholder-img card-img-top" src= "{{ producto.foto }}" width="100" height="325"></a>
-            <div class="card-body">
-              <p class="card-text"><b>{{producto.nombre}}</b></p>
-              <p class="card-text">Categoria: {{producto.categoria}}</p>
-              <p class="card-text">Marca: {{producto.marca}}</p>
-              {% if producto.stock < 1 %}
-              <br>
-              <br>
-              <p class="card-text" style="color:#FF0000">No hay stock</p>
-              {% endif %}
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                {% if producto.stock >= 1 %}
-                
-                  <form method="GET">
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <button type="submit" class="btn btn-secondary" formaction="{% url 'cesta:restar' producto.id %}" style="width: 35px;">-</button>
-                      </div>
-                      <input class="form-control" type="number" placeholder="Unidades" size="1" name="cantidad" value="1" min="1" max="{{producto.stock}}" required=true>
-                      <input type="hidden" name="next" value="{{ request.path }}">
-                      <div class="input-group-append">
-                        <button type="submit" class="btn btn-success" formaction="{% url 'cesta:agregar' producto.id %}" style="width: 35px;">+</button>
-                      </div>
-                    </div>
-                  <br>	
-                
-                  
-                  
-                  </form>
-                  
-                {% endif %}
+  <div class="container text-center">
+    {% for trio in trios_productos %}
+    <div class="row">
+        {% for producto in trio %}
+        <div class="col-12 col-md-4 text-center">
+            <div class="card" style="max-height: fit-content; max-width: fit-content;">
+                <img src={{producto.imagen}} class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="/products/{{producto.id}}">
+                            {{producto.nombre}}
+                        </a>
+                    </h5>
+                    <p class="card-text">{{producto.precio}}€</p>
+                    <!--
+                        <p class="card-text">{{producto.genero.nombre}}</p>
+                        <p class="card-text">{{producto.fabricante.nombre}}</p>
+                        <p class="card-text">{{producto.seccion.nombre}}</p>
+                    -->
+                    {% if producto.stock > 0 %}
+                    <form action="/addproduct/{{producto.id}}" method="GET" id="add_product">
+                        <input type="number" min="1" max="{{producto.stock}}" id="amount"
+                            name="amount" placeholder="Selecciona una cantidad:" style="width: 50%;">
+                        <button type="submit" href="#" class="btn btn-primary">+ <i
+                                class="fas fa-shopping-basket"></i></button>
+                    </form>
+                    {% else %}
+                    <span style="background-color: red; border-radius: 5%; color: white; min-width: 200%;">SIN STOCK</span>
+                    {% endif %}
                 </div>
-                <small class="text-muted"><b>{{juego.precio}} €</b></small>
-              </div>
             </div>
-          </div>
-        </div>    
-      	{% endfor %}
-      </div>    
+        </div>
+        {% endfor %}
     </div>
-  </div>
+    <br>
+    <hr>
+    </hr>
+    {% endfor %}
+</div>
 </main>
 
 
