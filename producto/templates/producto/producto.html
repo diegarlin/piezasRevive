@@ -1,0 +1,97 @@
+
+{% extends 'piezasRevive/base.html' %}
+
+{% load static %}
+
+
+{% block title %}Piezas Revive{% endblock %}
+
+{% block content %}
+
+<!doctype html>
+<html lang="es"> 
+  
+  <body>
+    {% if message %}
+    <div class="alert alert-success" role="alert">
+      {{message}}  
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    
+    {% endif %}
+    {% if user.is_authenticated %}
+   
+{% endif %}
+    
+    
+<main>
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      {% if messages %}
+        {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+      
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for producto in productos %}
+        <div class="col-lg-4">
+          <div class="card shadow-sm my-2">
+            <a href="{% url 'detalles' producto.id %}"><img class="bd-placeholder-img card-img-top" src= "{{ producto.foto }}" width="100" height="325"></a>
+            <div class="card-body">
+              <p class="card-text"><b>{{producto.nombre}}</b></p>
+              <p class="card-text">Categoria: {{producto.categoria}}</p>
+              <p class="card-text">Marca: {{producto.marca}}</p>
+              {% if producto.stock < 1 %}
+              <br>
+              <br>
+              <p class="card-text" style="color:#FF0000">No hay stock</p>
+              {% endif %}
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                {% if producto.stock >= 1 %}
+                
+                  <form method="GET">
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <button type="submit" class="btn btn-secondary" formaction="{% url 'cesta:restar' producto.id %}" style="width: 35px;">-</button>
+                      </div>
+                      <input class="form-control" type="number" placeholder="Unidades" size="1" name="cantidad" value="1" min="1" max="{{producto.stock}}" required=true>
+                      <input type="hidden" name="next" value="{{ request.path }}">
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-success" formaction="{% url 'cesta:agregar' producto.id %}" style="width: 35px;">+</button>
+                      </div>
+                    </div>
+                  <br>	
+                
+                  
+                  
+                  </form>
+                  
+                {% endif %}
+                </div>
+                <small class="text-muted"><b>{{juego.precio}} €</b></small>
+              </div>
+            </div>
+          </div>
+        </div>    
+      	{% endfor %}
+      </div>    
+    </div>
+  </div>
+</main>
+
+
+      
+  </body>
+  
+  <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</html>
+
+{% endblock %}
+
