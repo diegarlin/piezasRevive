@@ -47,7 +47,7 @@ def get_products_by_tuples(nombre_de_producto_buscado=None, categoria_buscada=No
         nombre_de_producto_buscado_valido = True
 
         if nombre_de_producto_buscado is not None:
-            nombre_de_producto_buscado_valido = producto.nombre.lower() == nombre_de_producto_buscado.replace("+"," ").lower()
+            nombre_de_producto_buscado_valido = producto.nombre.lower().__contains__(nombre_de_producto_buscado.replace("+"," ").lower())
         if categoria_buscada is not None:
             print(categoria_buscada)
             categoria_valida = producto.categoria.lower() == categoria_buscada.lower()

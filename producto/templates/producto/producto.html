@@ -8,44 +8,47 @@
 
 {% block content %}
       
-<main>
-
-  <div class="row bg-dark">
-    <div class="col-md-1"></div>
-    <div class="col-md-9">
-        <div class="row">
-            <div class="col-md-4">
-                <select class="form-select" aria-label="Selecciona un género" id="categorias" form="productfilter"
-                    name="categoria" style="width: 100%;">
-                    <option selected disabled>Selecciona una categoria</option>
-                    {% for categoria in categorias %}
-                    <option value="{{categoria}}">{{categoria}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col-md-4">
-                <select class="form-select" aria-label="Selecciona un sección" id="marcas" form="productfilter"
-                    name="marca" style="width: 100%;">
-                    <option selected disabled>Selecciona una marca</option>
-                    {% for marca in marcas %}
-                    <option value="{{marca}}">{{marca}}</option>
-                    {% endfor %}
-                </select>
-            </div>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+<form action="/product/" method="GET" id="productfilter" style="background-color:#2E4050">
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <input type="text" class="form-control" id="name" name="name" placeholder="Busqueda por nombre" form="productfilter">
+        </div>
+        <div class="col">
+            <select class="form-select" aria-label="Selecciona un género" id="categorias" form="productfilter"
+                name="categoria" style="width: 100%;">
+                <option selected disabled>Selecciona una categoria</option>
+                {% for categoria in categorias %}
+                <option value="{{categoria}}">{{categoria}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col">
+            <select class="form-select" aria-label="Selecciona un sección" id="marcas" form="productfilter"
+                name="marca" style="width: 100%;">
+                <option selected disabled>Selecciona una marca</option>
+                {% for marca in marcas %}
+                <option value="{{marca}}">{{marca}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-1">
+            <button type="submit" class="logout-button">Filtrar</button>
         </div>
     </div>
-    <div class="col-md-2">
-        <form action="/product/" method="GET" id="productfilter">
-            <button type="submit" class="btn btn-primary">Filtrar</button>
-        </form>
-    </div>
 </div>
+</form>
 
   <div class="container text-center">
     {% for productos in tupla_producto %}
     <div class="row">
         {% for producto in productos %}
-        <div class="col-12 col-md-4 text-center">
+        <div class="col-12 col-md-6 text-center">
             <div class="card" style="max-height: fit-content; max-width: fit-content;">
                 <img src={{producto.imagen}} class="card-img-top" alt="...">
                 <div class="card-body">
@@ -82,7 +85,6 @@
     </hr>
     {% endfor %}
 </div>
-</main>
 
 
 
