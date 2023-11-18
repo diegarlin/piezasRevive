@@ -52,7 +52,7 @@ class Producto(models.Model):
 
     descripcion = models.TextField()
     precio = models.DecimalField(max_digits=10, decimal_places=2)
-    imagen = models.ImageField(upload_to="producto/static/producto/images")
+    imagen = models.URLField()
     stock = models.IntegerField()
 
     def __str__(self):
