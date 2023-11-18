@@ -70,21 +70,6 @@ def detalles(request, product_id):
     
     return render(request, 'producto/productoDetalles.html', {'form': form})
 
-@login_required
-def nombre(request):
-    return render(request, 'producto/nombre.html')
-
-
-@login_required
-@csrf_exempt
-def search_by_name(request):
-    if ('name' in request.POST):
-        productos = Producto.objects.filter(nombre__icontains=request.POST['name'])
-        request.session['old_nombre'] = request.POST['name']
-    else:
-        productos = Producto.objects.filter(nombre__icontains=request.session['old_nombre'])
-    context = {"productos":productos, "index":0}
-    return render(request, 'producto/producto.html')
 
 '''
 def genre(request):
