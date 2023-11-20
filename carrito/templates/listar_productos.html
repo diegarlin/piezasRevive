@@ -9,7 +9,6 @@
   <h3>{{ producto.nombre }}</h3>
   <p>{{ producto.descripcion }}</p>
   <p>Precio: ${{ producto.precio }}</p>
-  <a href="{% url 'agregar_al_carrito' producto.id %}">Agregar al Carrito</a>
 {% endfor %}
 
 {% endblock %}

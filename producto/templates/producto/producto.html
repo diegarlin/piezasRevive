@@ -72,6 +72,18 @@
                                 class="fas fa-shopping-basket"></i></button>
                     </form>
                     -->
+                    <form method="GET">
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <button type="submit" class="btn btn-secondary" formaction="{% url 'carrito:restar' producto.id %}" style="width: 35px;">-</button>
+                          </div>
+                          <input class="form-control" type="number" placeholder="Unidades" size="1" name="cantidad" value="1" min="1" max="{{producto.stock}}" required=true>
+                          <input type="hidden" name="next" value="{{ request.path }}">
+                          <div class="input-group-append">
+                            <button type="submit" class="btn btn-success" formaction="{% url 'carrito:agregar' producto.id %}" style="width: 35px;">+</button>
+                          </div>
+                        </div>
+                      <br>	
                     {% else %}
                     <span style="background-color: red; border-radius: 5%; color: white; min-width: 200%;">SIN STOCK</span>
                     {% endif %}

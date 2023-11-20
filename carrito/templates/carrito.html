@@ -5,33 +5,115 @@
 
 {% block content %}
 
-<h2>Carrito de Compras</h2>
-<table>
+<table class="table table-bordered">
+
   <thead>
+
     <tr>
-      <th>Producto</th>
-      <th>Cantidad</th>
-      <th>Precio unitario</th>
-      <th>Subtotal</th>
+      <hr>
+      <th colspan="3" class="text-center">
+        Carrito compra
+      </th>
+
     </tr>
+
+    <tr>
+
+      <th style="width: 180px;">Producto</th>
+      <th style="width: 100px;">Unidades</th>
+      <th style="width: 150px;">Suma</th>
+
+
+
+    </tr>
+
+
+
   </thead>
+
   <tbody>
-    {% for item in carrito %}
-      <tr>
-        <td>{{ item.producto.nombre }}</td>
-        <td>{{ item.cantidad }}</td>
-        <td>${{ item.producto.precio }}</td>
-        <td>${{ item.subtotal }}</td>
-      </tr>
-    {% endfor %}
-  </tbody>
-  <tfoot>
-    <tr>
-      <td colspan="3"><strong>Total:</strong></td>
-      <td>${{ total }}</td>
+    {% if request.session.carrito.items %}
+
+    {% for key, value in request.session.carrito.items %}
+
+    <tr class="text-center">
+
+      <td>{{value.nombre}}</td>
+      <td style="text-align: center;">{{value.cantidad}}</td>
+      <td>
+
+        {{value.precio}} €
+
+
+      </td>
+
+
     </tr>
+
+
+
+    {% endfor %}
+
+    {% else %}
+
+    <tr>
+
+      <td colspan="3">
+        <div class="alert alert-danger text-center">
+
+          Sin Productos
+        </div>
+      </td>
+
+
+    </tr>
+
+
+    {% endif %}
+
+
+
+
+  </tbody>
+  <hr>
+  <tfoot>
+
+    <tr>
+
+      <td colspan="3">
+        Total: {{carrito.precio_total}} €
+
+      </td>
+      <td colspan="3" style="text-align: center;">
+
+        <a href="{% url 'carrito:limpiar' %}" class="text-center">Limpiar Carrito</a>
+
+      </td>
+
+    </tr>
+    <tr>
+
+
+    </tr>
+
+    {% if request.session.cesta.items %}
+    <tr>
+
+      <td colspan="3" style="text-align: center;">
+
+        <a href="{% url 'pedidos:hacer_pedido' %}" class="btn btn-sm btn-success">Hacer pedido</a>
+
+
+      </td>
+
+    </tr>
+    {% endif %}
+
   </tfoot>
+
+
+
 </table>
-<a href="{% url 'listar_productos' %}">Volver a la lista de productos</a>
+
 
 {% endblock %}

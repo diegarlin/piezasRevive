@@ -1,24 +1,66 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.shortcuts import render
+
+from .carrito import Carrito
+
 from producto.models import Producto
-from .models import ItemCarrito
 
-def listar_productos(request):
-    productos = Producto.objects.all()
-    return render(request, 'listar_productos.html', {'productos': productos})
+from django.shortcuts import redirect
 
-def agregar_al_carrito(request, producto_id):
-    producto = get_object_or_404(Producto, id=producto_id)
-    carrito_item, creado = ItemCarrito.objects.get_or_create(producto=producto)
-    carrito_item.cantidad += 1
-    carrito_item.save()
-    return render(request, 'agregar_al_carrito.html', {'producto': producto})
+from django.contrib import messages
+
+# Create your views here.
+
+def agregar_producto(request, producto_id):
+
+    carrito=Carrito(request)
+
+    producto=Producto.objects.get(id=producto_id)
+
+    if (str(producto_id) in carrito.carrito):
+        total = int(request.GET['cantidad']) + carrito.carrito[str(producto_id)]["cantidad"]
+        if (total >  producto.stock):
+            messages.error(request, f"No hay {total} copias disponibles, el stock de {producto.nombre} es {producto.stock} copias")
+            return redirect(request.GET['next'])
+
+    carrito.agregar(producto=producto)
+    
+    return redirect(request.GET['next'])
+
+
+def eliminar_producto(request, producto_id):
+
+    carrito=Carrito(request)
+
+    producto=Producto.objects.get(id=producto_id)
+
+    carrito.eliminar(producto=producto)
+
+    return redirect(request.GET['next'])
+
+
+def restar_producto(request, producto_id):
+
+    carrito=Carrito(request)
+
+    producto=Producto.objects.get(id=producto_id)
+
+    carrito.restar(producto=producto)
+
+    return redirect(request.GET['next'])
+
+
+def limpiar_carrito(request):
+
+    carrito=Carrito(request)
+
+    carrito.limpiar_carrito()
+
+    return redirect('../carrito/')
 
 def ver_carrito(request):
-    carrito = ItemCarrito.objects.all()
+    carrito = Carrito(request)
+    
+    return render(request, 'carrito.html', {'carrito': carrito})
 
-    for item in carrito:
-        item.subtotal = item.producto.precio * item.cantidad
 
-    total = sum(item.producto.precio * item.cantidad for item in carrito)
-    return render(request, 'carrito.html', {'carrito': carrito, 'total': total})
+
