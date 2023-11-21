@@ -138,7 +138,7 @@ a:hover {
 
 main {
     flex: 1; /* Ocupa el espacio restante */
-    background-color: #EEEEEE; /* Fondo para el contenido principal */
+    background-color: rgb(210, 228, 245); /* Fondo para el contenido principal */
     padding-top: 7.5vh;
     padding-bottom: 2vh;
 }
@@ -214,3 +214,23 @@ ul.errorlist.nonfield {
 ul.errorlist.nonfield li {
     margin-bottom: 5px;
   }
+
+  .container.my-5 {
+    margin-top: 5rem;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col-lg-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    box-sizing: border-box;
+    margin: auto;
+}
+
+#img {
+    padding-left: 12dvw;
+}

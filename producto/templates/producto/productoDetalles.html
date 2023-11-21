@@ -1,49 +1,20 @@
 {% extends 'piezasRevive/base.html' %}
 {% load static %}
 
-{% block title %}Piezas Revive{% endblock %}
-
 {% block content %}
-
-<table class="table table-bordered">
-
-    <thead>
-
-        <tr>
-            <hr>
-            <th colspan="3" class="text-center">
-                Detalles de Producto
-            </th>
-        </tr>
-        <br>
-    </thead>
-    <tbody>
-        {% if producto %}
-        <img src={{producto.imagen}} alt="..." style="width: 600px; height: 500px;">
-
-        <tr>
-            
-            <th style="width: 18%;">Nombre</th>
-            <th style="width: 18%;">Categoría</th>
-            <th style="width: 18%;">Marca</th>
-            <th style="width: 23%;">Descripción</th>
-            <th style="width: 14%;">Precio</th>
-            <th style="width: 14%;">Stock</th>
-
-        </tr>
-
-        <tr>
-
-            <td style="width: 130px;">{{producto.nombre}}</td>
-            <td style="width: 130px;">{{producto.categoría}}</td>
-            <td style="width: 130px; text-align: center;">{{producto.marca}}</td>
-            <td style="width: 130px;">{{producto.descripción}}</td>
-            <td style="width: 130px; text-align: center;">{{producto.precio}}</td>
-            <td style="width: 130px; text-align: center;">{{producto.stock}}</td>
-
-        </tr>
-        
-        {% endif %}
-    </tbody>
-</table>
-    {% endblock %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-6" id="img">
+            <img src={{producto.imagen}} alt="..." style="width: 400px;">
+        </div>
+        <div class="col-lg-6">
+            <h2>{{ producto.nombre }}</h2>
+            <p>{{ producto.descripcion }}</p>
+            <p><strong>Precio:</strong> {{ producto.precio }}€</p>
+            <p><strong>Stock:</strong> {{ producto.stock }}</p>
+            <p><strong>Marca:</strong> {{ producto.marca }}</p>
+            <p><strong>Categoria:</strong> {{ producto.categoria }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

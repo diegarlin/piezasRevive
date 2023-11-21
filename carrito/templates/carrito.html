@@ -64,13 +64,13 @@
         </td>
       </tr>
       <tr></tr>
-      {% if request.session.cesta.items %}
+      {% comment %} {% if request.session.carrito.items %}
       <tr>
         <td colspan="3" style="text-align: center;">
           <a href="{% url 'pedidos:hacer_pedido' %}" class="btn btn-sm btn-success">Hacer pedido</a>
         </td>
       </tr>
-      {% endif %}
+      {% endif %} {% endcomment %}
     </tfoot>
 
   </table>
