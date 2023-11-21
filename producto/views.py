@@ -4,8 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-
-
+from django.shortcuts import render, get_object_or_404
 
 from producto.models import Producto
 
@@ -25,7 +24,7 @@ Marcas = ('Seat',
     'Fiat')
 
 # Create your views here.
-@login_required
+# @login_required
 def product(request):
     nombre_de_producto_buscado = request.GET.get("name")
     categoria_buscada = request.GET.get("categoria")
@@ -63,12 +62,12 @@ def get_products_by_tuples(nombre_de_producto_buscado=None, categoria_buscada=No
     return lista_tuplas_productos
 
 
-@login_required
+# @login_required
 def detalles(request, product_id):
     producto = Producto.objects.get(id=product_id)
-    form = {"producto":producto}
+    #form = {"producto":producto}
     
-    return render(request, 'producto/productoDetalles.html', {'form': form})
+    return render(request, 'producto/productoDetalles.html', {'producto': producto})
 
 
 '''

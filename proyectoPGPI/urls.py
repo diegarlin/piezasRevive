@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("piezasRevive.urls")),
     path('', include("producto.urls")),
+    path('', include("carrito.urls")),
 ]

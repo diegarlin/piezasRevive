@@ -19,6 +19,12 @@
                 <a href="/"><img src="{% static 'piezasRevive/images/logo.png' %}" alt="Logo" class="logo"></a>
                 <a href="/"><span class="company-name">PiezasRevive</span></a>
             </div>
+            <div>
+                <a href="/product">Tienda</a>
+            </div>
+            <div>
+                <a href="/carrito">Carrito</a>
+            </div>
             <div class="button-container">
                 {% if user.is_authenticated %}
                     <button class="logout-button" onclick="logout()">Logout</button>
