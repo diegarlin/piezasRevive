@@ -66,9 +66,9 @@ def get_products_by_tuples(nombre_de_producto_buscado=None, categoria_buscada=No
 @login_required
 def detalles(request, product_id):
     producto = Producto.objects.get(id=product_id)
-    form = {"producto":producto}
+    #form = {"producto":producto}
     
-    return render(request, 'producto/productoDetalles.html', {'form': form})
+    return render(request, 'producto/productoDetalles.html', {'producto': producto})
 
 
 '''
