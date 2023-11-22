@@ -1,4 +1,5 @@
 from decimal import Decimal
+from producto.models import Producto
 
 class Carrito:
     def __init__(self, request):
@@ -57,6 +58,7 @@ class Carrito:
     def guardar_carrito(self):
         self.session["carrito"]=self.carrito
         self.session.modified=True
+
 
     def eliminar(self, producto):
         producto.id=str(producto.id)
