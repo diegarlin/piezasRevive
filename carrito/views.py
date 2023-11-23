@@ -51,7 +51,6 @@ def restar_producto(request, producto_id):
 
     return redirect(request.GET['next'])
 
-
 def limpiar_carrito(request):
 
     carrito=Carrito(request)

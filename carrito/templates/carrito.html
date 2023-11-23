@@ -4,21 +4,19 @@
 {% block title %}Piezas Revive{% endblock %}
 
 {% block content %}
+
 <head>
   <style>
-    .limpiar-carrito{
-      color:#333A42;
+    .limpiar-carrito {
+      color: #333A42;
     }
   </style>
 </head>
 
 
 <div class="container d-flex justify-content-center align-items-center vh-100">
-  <table class="table table-bordered" style="text-align: center; position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -20vh 0 0 -25vh;">
-
+  <table class="table table-bordered" style="margin-top: 20px; margin-left: 20px;">
+<br>
     <thead>
       <tr>
         <th colspan="3" class="text-center">
@@ -28,6 +26,7 @@
       <tr>
         <th style="width: 180px;">Producto</th>
         <th style="width: 100px;">Unidades</th>
+        <th style="width: 140px;">Editar</th>
         <th style="width: 150px;">Suma</th>
       </tr>
     </thead>
@@ -39,8 +38,22 @@
         <td>{{value.nombre}}</td>
         <td style="text-align: center;">{{value.cantidad}}</td>
         <td>
-          {{value.precio}} €
+          <form method="GET">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <button type="submit" class="btn btn-secondary" formaction="{% url 'carrito:restar' key %}"
+                  style="width: 35px; text-align: center;">-</button>
+
+                <button type="submit" class="btn btn-success" formaction="{% url 'carrito:agregar' key %}"
+                  style="width: 35px; text-align: center;">+</button>
+              </div>
+              <input class="form-control" type="number" placeholder="Unidades" size="1" name="cantidad" value="1"
+                min="1" max="{{value.cantidad}}" required=true style="width: 90px;">
+              <input type="hidden" name="next" value="{{ request.path }}">
+            </div>
+          </form>
         </td>
+        <td tyle="text-align: center;"> {{value.precio}} € </td>
       </tr>
       {% endfor %}
       {% else %}
@@ -53,14 +66,14 @@
       </tr>
       {% endif %}
     </tbody>
-    
+
     <tfoot>
       <tr>
         <td colspan="3">
           Total: {{carrito.precio_total}} €
         </td>
         <td colspan="3" style="text-align: center;">
-          <a class="limpiar-carrito"href="{% url 'carrito:limpiar' %}" class="text-center">Limpiar Carrito</a>
+          <a class="limpiar-carrito" href="{% url 'carrito:limpiar' %}" class="text-center">Limpiar Carrito</a>
         </td>
       </tr>
       <tr></tr>
