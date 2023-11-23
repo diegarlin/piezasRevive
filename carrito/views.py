@@ -41,15 +41,20 @@ def eliminar_producto(request, producto_id):
 
 
 def restar_producto(request, producto_id):
+    carrito = Carrito(request)
+    producto = Producto.objects.get(id=producto_id)
 
-    carrito=Carrito(request)
+    if not (str(producto_id) in carrito.carrito):
+        messages.error(request, f"No puedes eliminar {producto.nombre} ya que no está en tu carrito.")
+    elif int(request.GET.get('cantidad', 0)) <= carrito.carrito[str(producto_id)]["cantidad"]:
+        carrito.restar(producto=producto)
+        messages.info(request, "Borrado exitosamente")
+    else:
+        messages.error(request, f"No puedes eliminar más {producto.nombre} de los que tienes en tu carrito.")
 
-    producto=Producto.objects.get(id=producto_id)
+    return redirect(request.GET.get('next', '/'))
 
-    messages.info(request, "Borrado exitosamente")
-    carrito.restar(producto=producto)
-
-    return redirect(request.GET['next'])
+    
 
 def limpiar_carrito(request):
 
