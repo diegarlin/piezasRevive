@@ -19,7 +19,7 @@ class Carrito:
 
         if(str(producto.id) not in self.carrito.keys()):
             self.carrito[producto.id]={
-                "videojuego_id":producto.id,
+                "producto_id":producto.id,
                 "nombre":producto.nombre,
                 "categoria":producto.categoria,
                 "marca":producto.marca,

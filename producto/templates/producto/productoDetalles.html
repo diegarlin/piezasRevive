@@ -2,6 +2,20 @@
 {% load static %}
 
 {% block content %}
+
+<head>
+    <style>
+        input.form-control {
+          margin: auto;
+        }
+        .btn-group {
+          width: 100%;
+        }
+        form{
+            width: 130px;
+        }
+      </style>
+</head>
 <div class="container my-5">
     <div class="row">
         <div class="col-lg-6" id="img">
@@ -14,6 +28,31 @@
             <p><strong>Stock:</strong> {{ producto.stock }}</p>
             <p><strong>Marca:</strong> {{ producto.marca }}</p>
             <p><strong>Categoria:</strong> {{ producto.categoria }}</p>
+            {% if producto.stock > 0 %}
+                    <!--
+                    <form action="/addproduct/{{producto.id}}" method="GET" id="add_product">
+                        <input type="number" min="1" max="{{producto.stock}}" id="amount"
+                            name="amount" placeholder="Selecciona una cantidad:" style="width: 50%;">
+                        <button type="submit" href="#" class="btn btn-primary">+ <i
+                                class="fas fa-shopping-basket"></i></button>
+                    </form>
+                    -->
+                    <form method="GET">
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <button type="submit" class="btn btn-secondary" formaction="{% url 'carrito:restar' producto.id %}" style="width: 35px;">-</button>
+                          </div>
+                          <input class="form-control" type="number" placeholder="Unidades" size="1" name="cantidad" value="1" min="1" max="{{producto.stock}}" required=true>
+                          <input type="hidden" name="next" value="{{ request.path }}">
+                          <div class="input-group-append">
+                            <button type="submit" class="btn btn-success" formaction="{% url 'carrito:agregar' producto.id %}" style="width: 35px;">+</button>
+                          </div>
+                        </div>
+                    </form>
+                      <br>	
+                    {% else %}
+                    <span style="background-color: red; border-radius: 5%; color: white; min-width: 200%;">SIN STOCK</span>
+                    {% endif %}
         </div>
     </div>
 </div>

@@ -10,19 +10,26 @@
     .limpiar-carrito {
       color: #333A42;
     }
+    input.form-control {
+      margin: auto;
+    }
+    .btn-group {
+      width: 100%;
+    }
+
+    a.nombre {
+      color:  #222831;
+    }
+
+    a.nombre:hover {
+      color: #00ADB5;
+    }
   </style>
 </head>
 
-
 <div class="container d-flex justify-content-center align-items-center vh-100">
   <table class="table table-bordered" style="margin-top: 20px; margin-left: 20px;">
-<br>
-    <thead>
-      <tr>
-        <th colspan="3" class="text-center">
-          Carrito compra
-        </th>
-      </tr>
+    <thead class="thead-dark">
       <tr>
         <th style="width: 180px;">Producto</th>
         <th style="width: 100px;">Unidades</th>
@@ -35,20 +42,19 @@
       {% if request.session.carrito.items %}
       {% for key, value in request.session.carrito.items %}
       <tr class="text-center">
-        <td>{{value.nombre}}</td>
+        <td><a class="nombre" href="/product/details/{{value.producto_id}}">{{value.nombre}}</a></td>
         <td style="text-align: center;">{{value.cantidad}}</td>
         <td>
-          <form method="GET">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <button type="submit" class="btn btn-secondary" formaction="{% url 'carrito:restar' key %}"
-                  style="width: 35px; text-align: center;">-</button>
-
-                <button type="submit" class="btn btn-success" formaction="{% url 'carrito:agregar' key %}"
-                  style="width: 35px; text-align: center;">+</button>
+          <form class="prod d-flex align-items-center" method="GET">
+            <div class="input-group mb-3 btn-group">
+              <div class="input-group-prepend justify-content-center">
+                <button type="submit" class="btn btn-secondary" formaction="{% url 'carrito:restar' key %}">-</button>
               </div>
-              <input class="form-control" type="number" placeholder="Unidades" size="1" name="cantidad" value="1"
-                min="1" max="{{value.cantidad}}" required=true style="width: 90px;">
+              <input class="form-control text-center" type="number" placeholder="Unidades" size="1" name="cantidad" value="1"
+                min="1" max="{{value.cantidad}}" required=true style="width: 50px;">
+              <div class="input-group-append justify-content-center">
+                <button type="submit" class="btn btn-success" formaction="{% url 'carrito:agregar' key %}">+</button>
+              </div>
               <input type="hidden" name="next" value="{{ request.path }}">
             </div>
           </form>
@@ -58,9 +64,9 @@
       {% endfor %}
       {% else %}
       <tr>
-        <td colspan="3">
-          <div class="alert alert-danger text-center">
-            Sin Productos
+        <td colspan="3" class="text-center">
+          <div class="alert alert-danger">
+            <p style="background-color: red; border-radius: 5%; color: white; width:25%; ">Sin Productos</p>
           </div>
         </td>
       </tr>

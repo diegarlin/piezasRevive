@@ -234,3 +234,20 @@ ul.errorlist.nonfield li {
 #img {
     padding-left: 12dvw;
 }
+
+.form.prod {
+    display: flex;
+    align-items: center;
+}
+
+.input-group {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-secondary,
+.btn-success {
+    width: 35px;
+}
