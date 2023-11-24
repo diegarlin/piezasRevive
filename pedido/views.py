@@ -49,7 +49,7 @@ def hacer_pedido(request):
     return render(request,'form.html', {'pedido':pedido})
 
 def buscar_pedido(request):
-    return render(request, 'search.html', request)
+    return render(request, 'search.html')
 
 
 

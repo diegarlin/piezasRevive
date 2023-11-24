@@ -1,6 +1,9 @@
 {% extends 'piezasRevive/base.html' %}
 {% load static %}
 
+{% block title %}Piezas Revive{% endblock %}
+
+{% block content %}
 
 <!doctype html>
 <html lang="es">
@@ -12,9 +15,6 @@
                     <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}</div>
             {% endfor %}
         {% endif %}
-        <div style="float:right">
-            {% include "cesta/widget.html" %} 
-        </div>
 
         <div class="col-md-8">
             <table class="table table-bordered">
@@ -81,3 +81,5 @@
   
   <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </html>
+
+{% endblock %}
