@@ -53,7 +53,7 @@ class Carrito:
         self.guardar_carrito()
 
     def precio_total(self):
-        return sum(float(value['precio']) * value['cantidad'] for value in self.carrito.values())
+        return sum(float(value['precio']) for value in self.carrito.values())
 
     def guardar_carrito(self):
         self.session["carrito"]=self.carrito
