@@ -1,6 +1,6 @@
 from django.db import models
-from piezasRevive.models import PerfilUsuario
 from producto.models import Producto
+from django.contrib.auth.models import User
 
 class Pedido(models.Model):
     telefono=models.CharField(max_length=12)
@@ -8,7 +8,7 @@ class Pedido(models.Model):
     nombre_cliente=models.CharField(max_length=50)
     apellido_cliente=models.CharField(max_length=50)
     email=models.EmailField()
-    usuario = models.ForeignKey(PerfilUsuario, on_delete=models.CASCADE, blank=True, null=True)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
 
     EN_ESPERA = 'en_espera'
     ENVIADO = 'enviado'

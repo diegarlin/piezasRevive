@@ -10,7 +10,7 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.core.mail import send_mail
 from django.conf import settings
-#from pagos.views import success
+from pagos.views import success
 
 # Create your views here.
 
@@ -22,14 +22,17 @@ def procesar_pedido(request):
     request.session['email'] = request.POST['email']
     request.session['forma_pago'] = request.POST['formaPago']
     request.session['forma_entrega'] = request.POST['formaEntrega']
+    print("HOL2")
     
     
     
-    if (request.POST['formaPago'] == 'tarjeta'):
-        #messages.error(request, "El proceso de pago con tarjeta está en desarrollo") 
+    if (request.POST['formaPago'] == 'tarjeta'): 
+        print("HOLA1")
         return redirect("/pagos")
+        
     else:
-        #success(request)
+        print("HOLA")
+        success(request)
         return redirect("/")
 
 

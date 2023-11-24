@@ -11,9 +11,12 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+BASEURL = 'http://127.0.0.1:8000'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -42,6 +45,7 @@ INSTALLED_APPS = [
     'pedido',
     'opinion',
     'reclamaciones',
+    'pagos',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +132,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get('SECRET_KEY', default='django-insecure-g%m5ipglj1-v7pcqvna$=cheoqai5!$5qwd+6uq2+hc0vi@u0z')
+
+STRIPE_SECRET_KEY = "sk_test_51M7L2EDyJyJFSwFPoOWqNkgXRDswEYGZmOqKvBhK8nJRZkwNdPFwdzOiYoAVsxLFhw2ceFH3AAM629NliYPC7T0q004Tk0L5JN"
