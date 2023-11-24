@@ -5,8 +5,6 @@ from producto.models import Producto
 from django.contrib import messages
 from django.views.generic import View
 from django.shortcuts import redirect
-from django.template import loader
-from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags

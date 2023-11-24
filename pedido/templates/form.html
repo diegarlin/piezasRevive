@@ -1,96 +1,82 @@
 {% extends 'piezasRevive/base.html' %}
 {% load static %}
 
+{% block title %}Piezas Revive{% endblock %}
+
+{% block content %}
+
 
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <title>PiezasRevive Project</title>
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>  
-  </head>
-  
-  
-  
-  <body>
 
-<div class="container my-2">
-  {% if messages %}
-    {% for message in messages %}
-        <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}</div>
-    {% endfor %}
-  {% endif %}
-  <h1 class="text-center">Completar pedido</h1>
-  <div class="row justify-content-center">
+
+<body>
+
+  <div class="container my-2">
+    {% if messages %}
+      {% for message in messages %}
+          <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+    <h1 class="text-center">Completar pedido</h1>
+    <div class="row justify-content-center">
+      
+      <div class="col-md-8">
+        
+        <form action="{% url 'pedidos:procesar_pedido' %}" method="post">
+          {% csrf_token %}
+
+          <div class="form-group">
+              <label for="telefono">Teléfono: </label>
+              <input required=true class="form-control" id="telefono" type="tel" pattern="^\+?(6\d{2}|7[1-9]\d{1})\d{6}$" name="telefono" value="{{ pedido.telefono }}" placeholder="606424645">
+          </div>
+          <div class="form-group">
+            <label for="direccion">Direccion: </label>
+            <input required=true class="form-control" id="direccion" type="text" name="direccion" value="{{ pedido.direccion }}" placeholder="Sevilla, C/Bami, 6, 4ºA">
+          </div>
+          <div class="form-group">
+            <label for="nombre">Nombre: </label>
+            <input required=true class="form-control" id="nombre" type="text" name="nombre" value="{{ pedido.nombre_cliente }}" placeholder="Nombre" {% if pedido.nombre_cliente != '' %}readonly{% endif %}>
+          </div>
+          <div class="form-group">
+            <label for="apellido">Apellido: </label>
+            <input required=true class="form-control" id="apellido" type="text" name="apellido" value="{{ pedido.apellido_cliente }}" placeholder="Apellido" {% if pedido.apellido_cliente != '' %}readonly{% endif %}>
+          </div>
+          <div class="form-group">
+            <label for="email">Email: </label>
+            <input required=true class="form-control" id="email" type="email" name="email" value="{{ pedido.email }}" placeholder="email@game.es" {% if pedido.email != '' %}readonly{% endif %}>
+          </div>
+          <div class="form-group">
+            <label for="formaPago">Forma pago: </label>
+            <select required=true class="form-control" name="formaPago">
+              <option value="contrareembolso">Contrareembolso</option>
+              <option value="tarjeta">Tarjeta</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="formaPago">Forma entrega: </label>
+            <select required=true class="form-control" name="formaEntrega">
+              <option value="express">Express</option>
+              <option value="normal">Normal</option>
+            </select>
+          </div>
+          
+          <button class="btn btn-success btn-block" type="submit">Hacer pedido</button>
+        </form>
+      </div>
+      <div class="col-md-4 my-1">
+              
     
-    <div class="col-md-8">
-      
-      <form action="{% url 'pedidos:procesar_pedido' %}" method="post">
-        {% csrf_token %}
-
-        <div class="form-group">
-            <label for="telefono">Teléfono: </label>
-            <input required=true class="form-control" id="telefono" type="tel" pattern="^\+?(6\d{2}|7[1-9]\d{1})\d{6}$" name="telefono" value="{{ pedido.telefono }}" placeholder="606424645">
-        </div>
-        <div class="form-group">
-          <label for="direccion">Direccion: </label>
-          <input required=true class="form-control" id="direccion" type="text" name="direccion" value="{{ pedido.direccion }}" placeholder="Sevilla, C/Bami, 6, 4ºA">
-        </div>
-        <div class="form-group">
-          <label for="nombre">Nombre: </label>
-          <input required=true class="form-control" id="nombre" type="text" name="nombre" value="{{ pedido.nombre_cliente }}" placeholder="Nombre" {% if pedido.nombre_cliente != '' %}readonly{% endif %}>
-        </div>
-        <div class="form-group">
-          <label for="apellido">Apellido: </label>
-          <input required=true class="form-control" id="apellido" type="text" name="apellido" value="{{ pedido.apellido_cliente }}" placeholder="Apellido" {% if pedido.apellido_cliente != '' %}readonly{% endif %}>
-        </div>
-        <div class="form-group">
-          <label for="email">Email: </label>
-          <input required=true class="form-control" id="email" type="email" name="email" value="{{ pedido.email }}" placeholder="email@game.es" {% if pedido.email != '' %}readonly{% endif %}>
-        </div>
-        <div class="form-group">
-          <label for="formaPago">Forma pago: </label>
-          <select required=true class="form-control" name="formaPago">
-            <option value="contrareembolso">Contrareembolso</option>
-            <option value="tarjeta">Tarjeta</option>
-          </select>
-        </div>
-        
-         <div class="form-group">
-          <label for="formaPago">Forma entrega: </label>
-          <select required=true class="form-control" name="formaEntrega">
-            <option value="express">Express</option>
-            <option value="normal">Normal</option>
-          </select>
-        </div>
-        
-        <button class="btn btn-success btn-block" type="submit">Hacer pedido</button>
-      </form>
     </div>
-    <div class="col-md-4 my-1">
-            
-      {% include "cesta/widget.html" %} 
-  
+    </div>
   </div>
-  </div>
-</div>
-  </div>
+    </div>
       
-  </body>
+</body>
   
-  <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </html>
+
+{% endblock %}
 
