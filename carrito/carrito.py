@@ -54,6 +54,18 @@ class Carrito:
 
     def precio_total(self):
         return sum(float(value['precio']) for value in self.carrito.values())
+    
+    def gastos_envio(self):
+        if self.precio_total() < 1000:
+            return 8.47
+        else:
+            return 0
+        
+    def precio_final(self):
+        if self.precio_total() == 0:
+            return 0
+        else:
+            return self.precio_total() + self.gastos_envio()
 
     def guardar_carrito(self):
         self.session["carrito"]=self.carrito

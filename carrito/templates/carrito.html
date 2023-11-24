@@ -62,6 +62,11 @@
         <td tyle="text-align: center;"> {{value.precio}} € </td>
       </tr>
       {% endfor %}
+      <tr>
+      <td colspan="3">
+        Gastos de envío: {{carrito.gastos_envio}} €
+      </td>
+      </tr>
       {% else %}
       <tr>
         <td colspan="3" class="text-center">
@@ -76,7 +81,7 @@
     <tfoot>
       <tr>
         <td colspan="3">
-          Total: {{carrito.precio_total}} €
+          Total: {{carrito.precio_final}} €
         </td>
         <td colspan="3" style="text-align: center;">
           <a class="limpiar-carrito" href="{% url 'carrito:limpiar' %}" class="text-center">Limpiar Carrito</a>
