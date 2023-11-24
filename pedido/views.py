@@ -21,19 +21,13 @@ def procesar_pedido(request):
     request.session['apellido'] = request.POST['apellido']
     request.session['email'] = request.POST['email']
     request.session['forma_pago'] = request.POST['formaPago']
-    request.session['forma_entrega'] = request.POST['formaEntrega']
-    print("HOL2")
-    
-    
+    request.session['forma_entrega'] = request.POST['formaEntrega']    
     
     if (request.POST['formaPago'] == 'tarjeta'): 
-        print("HOLA1")
         return redirect("/pagos")
         
     else:
-        print("HOLA")
-        success(request)
-        return redirect("/")
+        return redirect("/pagos/success")
 
 
 def hacer_pedido(request):

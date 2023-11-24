@@ -1,3 +1,5 @@
+{% block content %}
+
 <html>
 <head>
  <title>Thanks for your order!</title>
@@ -9,17 +11,17 @@
  <div class="alert alert-success" role="alert">
  	<h3>Pago correctamente efectuado</h3>
  </div>
- <p>Muchas gracias por si compra. Revise el identificador que le saldrá en la siguiente pantalla.</p>
+ <p>Muchas gracias por su compra. Para revisar el estado del pedido consulte con la siguiente identificación: {{id}}</p>
  <p>Debe de haber recibido un email tras su compra. Por favor, verifíquelo.</p>
- <p>Serás redireccionado en <span id="seconds">7</span> segundos.</p>
+ <p>Serás redireccionado en <span id="seconds">10</span> segundos.</p>
  </p>
  </div>
  <script>
-  var seconds = 7; // seconds for HTML
+  var seconds = 10; // seconds for HTML
   var foo; // variable for clearInterval() function
 
   function redirect() {
-      document.location.href = '';
+      document.location.href = '/';
   }
 
   function updateSecs() {
@@ -41,3 +43,5 @@
  </script>
 </body>
 </html>
+
+{% endblock %}

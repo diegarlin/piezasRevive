@@ -95,8 +95,9 @@ def success(request):
         
     )
 
-    messages.success(request, f"El pedido se ha creado correctamente. Guarde el siguiente identificador para ver el estado de su pedido: {pedido.pk}")
-    return render(request,'success.html')
+    #messages.success(request, f"El pedido se ha creado correctamente. Guarde el siguiente identificador para ver el estado de su pedido: {pedido.pk}")
+    context = {'id':pedido.pk}
+    return render(request,'success.html', context=context)
 
 def enviar_mail(**kwargs):
     asunto="Gracias por realizar el pedido"
