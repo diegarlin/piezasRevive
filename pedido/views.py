@@ -45,11 +45,12 @@ def hacer_pedido(request):
         pedido.nombre_cliente = ""
         pedido.apellido_cliente = ""
         pedido.email = ""
-    return render(request,'pagar.html', {'pedido':pedido})
-'''
+    return render(request,'form.html', {'pedido':pedido})
+
 def buscar_pedido(request):
-    return HttpResponse(template.render(request=request))
-'''
+    return render(request, 'search.html', request)
+
+
 
 @csrf_exempt
 def mostrar_pedido(request):
@@ -69,5 +70,5 @@ def mostrar_pedido(request):
     itemspedido = ItemPedido.objects.filter(pedido=pedido.pk)
     total = sum([linea.producto.precio * linea.cantidad for linea in itemspedido])
     context = {"lineas_pedido": itemspedido, "pedido":pedido, "total":total, "index":0}
-    return render(request, 'pedido/pagar.html', context)
+    return render(request, 'show.html', context)
 
