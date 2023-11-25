@@ -19,6 +19,7 @@ from django.utils.html import strip_tags
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.mail import EmailMultiAlternatives
 
 
 import json
@@ -80,7 +81,7 @@ def success(request):
             pedido=pedido
         ))
 
-    importe_total = sum([linea.producto.precio * linea.cantidad for linea in lineas_pedido]) 
+    importe_total = sum([linea.producto.precio * linea.cantidad for linea in lineas_pedido])
     if(importe_total < 1000.0):
         pedido.gastos_envio = 8.0
         pedido.save()
@@ -94,7 +95,7 @@ def success(request):
         nombre = nombre,
         emailusuario = email,
         direccion_entrega=direccion,
-        importe_total=importe_total
+        importe_total=importe_total+pedido.gastos_envio
         
     )
 
@@ -116,13 +117,7 @@ def enviar_mail(**kwargs):
     from_email="piezarevive@gmail.com"
     to=kwargs.get("emailusuario")
 
-    #send_mail(asunto, mensaje_texto, from_email, [to], html_message=mensaje)
-
-def send_mail_func(request):
-    ...
     send_mail(asunto, mensaje_texto, from_email, [to])
-          
-    return HttpResponse("Email Sent")
 
 def cancel(request):
     return render(request,'cancel.html')
