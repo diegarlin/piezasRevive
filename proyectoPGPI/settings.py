@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'opinion',
     'reclamaciones',
     'pagos',
+    'anymail',
 ]
 
 INSTALLED_APPS += ('mathfilters', )
@@ -139,3 +140,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SECRET_KEY = os.environ.get('SECRET_KEY', default='django-insecure-g%m5ipglj1-v7pcqvna$=cheoqai5!$5qwd+6uq2+hc0vi@u0z')
 
 STRIPE_SECRET_KEY = "sk_test_51M7L2EDyJyJFSwFPoOWqNkgXRDswEYGZmOqKvBhK8nJRZkwNdPFwdzOiYoAVsxLFhw2ceFH3AAM629NliYPC7T0q004Tk0L5JN"
+
+
+EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST="smtp.gmail.com"
+EMAIL_USE_TLS=True
+EMAIL_PORT=587
+EMAIL_HOST_USER="piezasrevivepgpi@gmail.com"
+EMAIL_HOST_PASSWORD="rdwamwrwwuwbudbh"   
+
+
+ANYMAIL = {
+    "MAILGUN_API_KEY": "82a2216b061cd0558e36984d222dd29f-5d2b1caa-6bffee42",
+    "MAILGUN_SENDER_DOMAIN": 'sandboxade8aa876ba04cf294b5a944aeed9335.mailgun.org',  
+}
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend" 
+DEFAULT_FROM_EMAIL = "piezarevive@gmail.com" 
+SERVER_EMAIL = "piezarevive@gmail.com"  
+
