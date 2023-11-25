@@ -118,6 +118,12 @@ def enviar_mail(**kwargs):
 
     #send_mail(asunto, mensaje_texto, from_email, [to], html_message=mensaje)
 
+def send_mail_func(request):
+    ...
+    send_mail(asunto, mensaje_texto, from_email, [to])
+          
+    return HttpResponse("Email Sent")
+
 def cancel(request):
     return render(request,'cancel.html')
  
