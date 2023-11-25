@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include("piezasRevive.urls")),
     path('', include("producto.urls")),
     path('', include("carrito.urls")),
+    path('', include("opinion.urls")),
 ]
