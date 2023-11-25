@@ -21,11 +21,19 @@
                 <a href="/"><span class="company-name">PiezasRevive</span></a>
             </div>
             <div>
-                <a href="/product">Tienda</a>
+                <a href="/product">Tienda</a>   
             </div>
             <div>
                 <a href="/carrito"><i class="fa fa-shopping-cart" style="font-size:36px"></i></a>
             </div>
+            <div>
+                <a class="nav-link" href="/buscarPedido/">Buscar pedido </a>
+            </div>
+            {% if user.is_authenticated %}
+            <div>
+                <a href="/pedidos">Mis pedidos</span></a>
+            </div>
+            {% endif %}
             <div class="button-container">
                 {% if user.is_authenticated %}
                     <button class="logout-button" onclick="logout()">Logout</button>
