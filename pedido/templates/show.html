@@ -1,5 +1,6 @@
 {% extends 'piezasRevive/base.html' %}
 {% load static %}
+{% load mathfilters %}
 
 {% block title %}Piezas Revive{% endblock %}
 
@@ -41,7 +42,7 @@
                             <td>{{linea.cantidad}}</td>
                             <td>
         
-                                {% widthratio linea.cantidad 1.0 linea.producto.precio %} €
+                                {{linea.cantidad |mul:linea.producto.precio }} €
         
                             </td>
         
