@@ -57,7 +57,7 @@ class Carrito:
     
     def gastos_envio(self):
         if self.precio_total() < 1000:
-            return 8.47
+            return 8.0
         else:
             return 0
         

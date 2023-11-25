@@ -64,6 +64,7 @@ def mostrar_pedido(request):
 
     itemspedido = ItemPedido.objects.filter(pedido=pedido.pk)
     total = sum([linea.producto.precio * linea.cantidad for linea in itemspedido])
+    total += pedido.gastos_envio
     context = {"lineas_pedido": itemspedido, "pedido":pedido, "total":total, "index":0}
     return render(request, 'show.html', context)
 

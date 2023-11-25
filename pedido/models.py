@@ -54,6 +54,8 @@ class Pedido(models.Model):
         default=NORMAL,
     )
 
+    gastos_envio = models.IntegerField(default=0)
+
     class Meta:
         db_table='pedidos'
         verbose_name='pedido'

@@ -80,7 +80,10 @@ def success(request):
             pedido=pedido
         ))
 
-    importe_total = sum([linea.producto.precio * linea.cantidad for linea in lineas_pedido])
+    importe_total = sum([linea.producto.precio * linea.cantidad for linea in lineas_pedido]) 
+    if(importe_total < 1000.0):
+        pedido.gastos_envio = 8.0
+        pedido.save()
     
     ItemPedido.objects.bulk_create(lineas_pedido)
 
@@ -95,7 +98,6 @@ def success(request):
         
     )
 
-    #messages.success(request, f"El pedido se ha creado correctamente. Guarde el siguiente identificador para ver el estado de su pedido: {pedido.pk}")
     context = {'id':pedido.pk}
     return render(request,'success.html', context=context)
 
@@ -111,10 +113,10 @@ def enviar_mail(**kwargs):
     })
 
     mensaje_texto=strip_tags(mensaje)
-    from_email="gameprojectpgpi@gmail.com"
+    from_email="info@piezasrevive.com"
     to=kwargs.get("emailusuario")
 
-    #send_mail(asunto, mensaje_texto, from_email, [to], html_message=mensaje)
+    send_mail(asunto, mensaje_texto, from_email, [to], html_message=mensaje)
 
 def cancel(request):
     return render(request,'cancel.html')
