@@ -34,18 +34,18 @@ def home(request):
     forma_pago = request.session['forma_pago']
     forma_entrega = request.session['forma_entrega']
     
-    carrito=carrito(request)
+    carrito=Carrito(request)
     
     lineas_pedido = list()
     for key, value in carrito.carrito.items():
         pieza = Producto.objects.get(pk=key)
         lineas_pedido.append(ItemPedido(
-            Producto=pieza,
+            producto=pieza,
             cantidad=value["cantidad"],
             pedido=None
         ))
 
-    total = sum([linea.Producto.precio * linea.cantidad for linea in lineas_pedido])
+    total = sum([linea.producto.precio * linea.cantidad for linea in lineas_pedido])
     
     request.session['total'] = total
     url = '/pagos/create-checkout-session/'
