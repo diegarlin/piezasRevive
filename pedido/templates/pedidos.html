@@ -12,12 +12,13 @@
   <body>  
       <div class="container my-2"></div>
 
+        {% for pedido, items in lineas_pedido.items %}
         <div class="col-md-8">
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th colspan="3" class="text-center">
-                            Pedido
+                            Pedido {{pedido.id}}
                         </th>
                     </tr>
                     <tr>
@@ -29,7 +30,7 @@
         
                 <tbody>
             
-                    {% for linea in lineas_pedido %}
+                    {% for linea in items %}
         
                         <tr class="text-center">
         
@@ -55,7 +56,7 @@
                     <tr>
             
                         <td colspan="3">
-                            Total: {{total}} €
+                            Total: {{pedido.precio_final}} €
             
                         </td>
             
@@ -71,6 +72,7 @@
                 <p>Forma de entrega: <b>{{ pedido.forma_entrega }}</b></p>
             </div>
         </div>
+        {% endfor %}
       </div>
   </body>
   

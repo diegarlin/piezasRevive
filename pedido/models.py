@@ -55,6 +55,7 @@ class Pedido(models.Model):
     )
 
     gastos_envio = models.IntegerField(default=0)
+    precio_final = models.IntegerField(default=0)
 
     class Meta:
         db_table='pedidos'

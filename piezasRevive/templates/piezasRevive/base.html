@@ -26,8 +26,13 @@
                 <a href="/carrito">Carrito</a>
             </div>
             <div>
-                <a class="nav-link" href="/buscarPedido/">Pedido </a>
+                <a class="nav-link" href="/buscarPedido/">Buscar pedido </a>
             </div>
+            {% if user.is_authenticated %}
+            <div>
+                <a href="/pedidos">Mis pedidos</span></a>
+            </div>
+            {% endif %}
             <div class="button-container">
                 {% if user.is_authenticated %}
                     <button class="logout-button" onclick="logout()">Logout</button>
