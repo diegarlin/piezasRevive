@@ -86,15 +86,14 @@
         <td colspan="3" style="text-align: center;">
           <a class="limpiar-carrito" href="{% url 'carrito:limpiar' %}" class="text-center">Limpiar Carrito</a>
         </td>
-      </tr>
-      <tr></tr>
-      {% if request.session.carrito.items %}
-      <tr>
+        {% if request.session.carrito.items %}
         <td colspan="3" style="text-align: center;">
-          <a href="{% url 'pedidos:hacer_pedido' %}" class="btn btn-sm btn-success">Hacer pedido</a>
+          <a class="limpiar-carrito" href="{% url 'pedidos:hacer_pedido' %}" class="btn btn-sm btn-success">Hacer pedido</a>
         </td>
+        {% endif %}
       </tr>
-      {% endif %}
+     
+      
     </tfoot>
 
   </table>

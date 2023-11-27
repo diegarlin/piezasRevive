@@ -1,13 +1,7 @@
 {% extends 'piezasRevive/base.html' %}
-{% load static %}
+{% load static %}  
 
-
-<!doctype html>
-<html lang="es">
-  
-<body>
     {% block content %}      
-   <main>
   		<section class="py-5 text-center container">
 
 			{% if messages %}
@@ -15,11 +9,6 @@
 						<div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}</div>
 				{% endfor %}
 			{% endif %}
-
-			<div style="float:right">
-        
-			
-			  </div>
 			  
 	    <div class="row py-lg-5">
 		      <div class="col-lg-6 col-md-8 mx-auto">
@@ -35,6 +24,4 @@
 		    </div>
 	    </div>
     	</section>
-    </main>
     {% endblock content %}
-</body>
