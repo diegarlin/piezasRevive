@@ -14,6 +14,15 @@ def register_view(request):
         form = RegistroUsuarioForm(request.POST)
         if form.is_valid():
             user = form.save()
+
+            # Obtener los datos de forma de pago y forma de entrega del RegistroUsuarioForm
+            forma_entrega = form.cleaned_data['forma_entrega']
+            forma_pago = form.cleaned_data['forma_pago']
+
+            # Crear el perfil vinculado al usuario con los datos obtenidos
+            perfil_usuario = PerfilUsuario.objects.create(usuario=user, forma_entrega=forma_entrega, forma_pago=forma_pago)
+
+            # Iniciar sesión y redirigir
             login(request, user)
             messages.success(request, '¡Registro exitoso!')
             return redirect('login')
@@ -61,6 +70,17 @@ def editar_perfil(request):
         form = EditarPerfilForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
+
+            # Obtener los datos de forma de pago y forma de entrega del EditarPerfilForm
+            forma_entrega = form.cleaned_data['forma_entrega']
+            forma_pago = form.cleaned_data['forma_pago']
+
+            # Actualizar el perfil vinculado al usuario con los datos obtenidos
+            perfil_usuario, created = PerfilUsuario.objects.get_or_create(usuario=request.user)
+            perfil_usuario.forma_entrega = forma_entrega
+            perfil_usuario.forma_pago = forma_pago
+            perfil_usuario.save()
+
             messages.success(request, 'Perfil actualizado exitosamente.')
             return redirect('index')
     else:

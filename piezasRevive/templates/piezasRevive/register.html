@@ -1,7 +1,6 @@
 {% extends 'piezasRevive/base.html' %}
 {% load static %}
 
-
 {% block title %}Piezas Revive{% endblock %}
 
 {% block content %}
@@ -50,6 +49,20 @@
         {{ form.password2 }}
         <div class="invalid-feedback">
           {{ form.password2.errors.as_text }}
+        </div>
+      </div>
+      <div class="mb-3">
+        {{ form.forma_entrega.label_tag }}
+        {{ form.forma_entrega }}
+        <div class="invalid-feedback">
+          {{ form.forma_entrega.errors.as_text }}
+        </div>
+      </div>
+      <div class="mb-3">
+        {{ form.forma_pago.label_tag }}
+        {{ form.forma_pago }}
+        <div class="invalid-feedback">
+          {{ form.forma_pago.errors.as_text }}
         </div>
       </div>
       <button type="submit" class="btn btn-primary">Registrarse</button>
