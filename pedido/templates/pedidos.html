@@ -70,6 +70,7 @@
             <div>
                 <p>Estado: <b>{% if pedido.estado_pedido == 'en_espera' %}en espera{% else %}{{pedido.estado_pedido}}{% endif %}</b></p>
                 <p>Forma de entrega: <b>{{ pedido.forma_entrega }}</b></p>
+                <p><a style="color:#222831;"href="/reclamaciones/{{pedido.id}}">Poner una reclamacion</a></p>
             </div>
         </div>
         {% endfor %}

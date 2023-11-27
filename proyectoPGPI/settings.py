@@ -143,12 +143,13 @@ STRIPE_SECRET_KEY = "sk_test_51M7L2EDyJyJFSwFPoOWqNkgXRDswEYGZmOqKvBhK8nJRZkwNdP
 
 
 EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST="smtp.gmail.com"
+EMAIL_HOST="smtp.office365.com"
 EMAIL_USE_TLS=True
 EMAIL_PORT=587
-EMAIL_HOST_USER="piezasrevivepgpi@gmail.com"
-EMAIL_HOST_PASSWORD="rdwamwrwwuwbudbh"   
-
+EMAIL_HOST_USER="piezasRevive@outlook.com"
+EMAIL_HOST_PASSWORD="rdwamwrwwuwbudbh8@"   
+# rdwamwrwwuwbudbh8@ outlook
+# rdwamwrwwuwbudbh gmail
 
 ANYMAIL = {
     "MAILGUN_API_KEY": "82a2216b061cd0558e36984d222dd29f-5d2b1caa-6bffee42",
