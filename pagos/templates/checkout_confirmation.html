@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de compra</title>
+</head>
+<body>
+    <h2>¡Gracias por tu compra en Piezas Revive!</h2>
+
+    <p>Detalles de la compra:</p>
+    
+    <ul>
+        <li>Número de pedido: {{ pedido.id }}</li>
+        <li>Nombre y apellidos: {{ nombre }} </li>
+        <li>Email: {{ emailusuario }}</li>
+        <li>Dirección de entrega: {{ direccion_entrega }}</li>
+        <li>Importe total: {{ importe_total }}</li>
+    </ul>
+
+    <h3>Productos comprados:</h3>
+
+    <ul>
+        {% for linea_pedido in lineas_pedido %}
+            <li>{{ linea_pedido.producto.nombre }} - Cantidad: {{ linea_pedido.cantidad }} - Precio unitario: {{ linea_pedido.producto.precio }}</li>
+        {% endfor %}
+    </ul>
+
+    <p>¡Gracias por elegir Piezas Revive!</p>
+</body>
+</html>

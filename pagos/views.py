@@ -103,21 +103,34 @@ def success(request):
     return render(request,'success.html', context=context)
 
 def enviar_mail(**kwargs):
-    asunto="Gracias por realizar el pedido"
-    mensaje=render_to_string("email.html",{
-        "pedido": kwargs.get("pedido"),
-        "lineas_pedido": kwargs.get("lineas_pedido"),
-        "nombre": kwargs.get("nombre"),
-        "emailusuario": kwargs.get("emailusuario"),
-        "direccion_entrega": kwargs.get("direccion_entrega"),
-        "importe_total": kwargs.get("importe_total")
-    })
+    try:
+        subject = 'Detalles de tu compra en Piezas Revive'
+        from_email = 'piezasrevive@outlook.com'
+        to_email = [kwargs.get("emailusuario")]
 
-    mensaje_texto=strip_tags(mensaje)
-    from_email="piezarevive@gmail.com"
-    to=kwargs.get("emailusuario")
+        context = {
+            "pedido": kwargs.get("pedido"),
+            "lineas_pedido": kwargs.get("lineas_pedido"),
+            "nombre": kwargs.get("nombre"),
+            "emailusuario": kwargs.get("emailusuario"),
+            "direccion_entrega": kwargs.get("direccion_entrega"),
+            "importe_total": kwargs.get("importe_total"),
+        }
 
-    send_mail(asunto, mensaje_texto, from_email, [to])
+        html_message = render_to_string('checkout_confirmation.html', context)
+        plain_message = strip_tags(html_message)
+
+        email = EmailMultiAlternatives(
+            subject,
+            plain_message,
+            from_email,
+            to_email
+        )
+
+        email.attach_alternative(html_message, "text/html")
+        email.send()
+    except Exception as e:
+        print(f"Error al enviar el correo: {e}")
 
 def cancel(request):
     return render(request,'cancel.html')
