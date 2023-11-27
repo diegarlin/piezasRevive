@@ -154,7 +154,7 @@ def create_checkout_session(request):
         'price_data': {
             'currency': 'eur',
             'product_data': {
-                'name': 'Pago en GAME',
+                'name': 'Pago en PiezasRevive',
              },
              'unit_amount': total_formated,
          },
