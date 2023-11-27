@@ -33,5 +33,7 @@ class PerfilUsuario(models.Model):
         choices=FORMA_PAGO,
         default=CONTRAREEMBOLSO,
     )
+
+    domicilio = models.CharField(max_length=300, default="Avenida Reina Mercedes S/N ETSII")
     def __str__(self):
         return self.usuario.username

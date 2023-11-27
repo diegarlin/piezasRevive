@@ -5,7 +5,7 @@ from .forms import RegistroUsuarioForm, CorreoElectronicoAuthenticationForm, Edi
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+from .models import PerfilUsuario
 def index(request):
     return redirect("/product/")
 
@@ -15,14 +15,12 @@ def register_view(request):
         if form.is_valid():
             user = form.save()
 
-            # Obtener los datos de forma de pago y forma de entrega del RegistroUsuarioForm
             forma_entrega = form.cleaned_data['forma_entrega']
             forma_pago = form.cleaned_data['forma_pago']
+            domicilio = form.cleaned_data['domicilio']
 
-            # Crear el perfil vinculado al usuario con los datos obtenidos
-            perfil_usuario = PerfilUsuario.objects.create(usuario=user, forma_entrega=forma_entrega, forma_pago=forma_pago)
+            PerfilUsuario.objects.create(usuario=user, forma_entrega=forma_entrega, forma_pago=forma_pago, domicilio=domicilio)
 
-            # Iniciar sesión y redirigir
             login(request, user)
             messages.success(request, '¡Registro exitoso!')
             return redirect('login')
@@ -66,24 +64,34 @@ def editar_perfil(request):
         messages.error(request, '¡Debe estar logeado!', extra_tags='timer_duration:3000') 
         return redirect('login')
 
+    try:
+        perfil_usuario = PerfilUsuario.objects.get(usuario=request.user)
+    except PerfilUsuario.DoesNotExist:
+        perfil_usuario = None
+
     if request.method == 'POST':
         form = EditarPerfilForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
 
-            # Obtener los datos de forma de pago y forma de entrega del EditarPerfilForm
-            forma_entrega = form.cleaned_data['forma_entrega']
-            forma_pago = form.cleaned_data['forma_pago']
+            if perfil_usuario is None:
+                perfil_usuario = PerfilUsuario(usuario=request.user)
 
-            # Actualizar el perfil vinculado al usuario con los datos obtenidos
-            perfil_usuario, created = PerfilUsuario.objects.get_or_create(usuario=request.user)
-            perfil_usuario.forma_entrega = forma_entrega
-            perfil_usuario.forma_pago = forma_pago
+            perfil_usuario.forma_entrega = form.cleaned_data['forma_entrega']
+            perfil_usuario.forma_pago = form.cleaned_data['forma_pago']
+            perfil_usuario.domicilio = form.cleaned_data['domicilio']
             perfil_usuario.save()
 
             messages.success(request, 'Perfil actualizado exitosamente.')
             return redirect('index')
     else:
-        form = EditarPerfilForm(instance=request.user)
+        form_data = {'forma_entrega': '', 'forma_pago': '', 'domicilio': ''}
+        if perfil_usuario:
+            form_data['forma_entrega'] = perfil_usuario.forma_entrega
+            form_data['forma_pago'] = perfil_usuario.forma_pago
+            form_data['domicilio'] = perfil_usuario.domicilio
+
+        form = EditarPerfilForm(instance=request.user, initial=form_data)
 
     return render(request, 'piezasRevive/editar_perfil.html', {'form': form})
+

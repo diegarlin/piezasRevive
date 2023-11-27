@@ -52,6 +52,13 @@
         </div>
       </div>
       <div class="mb-3">
+        {{ form.domicilio.label_tag }}
+        {{ form.domicilio }}
+        <div class="invalid-feedback">
+          {{ form.domicilio.errors.as_text }}
+        </div>
+      </div>
+      <div class="mb-3">
         {{ form.forma_entrega.label_tag }}
         {{ form.forma_entrega }}
         <div class="invalid-feedback">

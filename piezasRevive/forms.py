@@ -32,6 +32,8 @@ class RegistroUsuarioForm(UserCreationForm):
         choices=FORMA_PAGO,
     )
 
+    domicilio = forms.CharField(max_length=30, required=True, label="Domicilio")
+
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if User.objects.filter(email=email).exists():
@@ -40,7 +42,7 @@ class RegistroUsuarioForm(UserCreationForm):
     
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name', 'password1', 'password2', 'forma_pago', 'forma_entrega']
+        fields = ['username', 'email', 'first_name', 'last_name', 'password1', 'password2', 'forma_pago', 'forma_entrega', 'domicilio']
 
 class CorreoElectronicoAuthenticationForm(AuthenticationForm):
     username = forms.EmailField(widget=forms.TextInput(attrs={'autofocus': True}), label="Email")
@@ -78,6 +80,8 @@ class EditarPerfilForm(UserChangeForm):
         choices=FORMA_PAGO,
     )
 
+    domicilio = forms.CharField(max_length=30, required=True, label="Domicilio")
+
     def clean_email(self):
         email = self.cleaned_data.get('email')
         # Excluir el usuario actual de la validación
@@ -87,4 +91,4 @@ class EditarPerfilForm(UserChangeForm):
     
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name', 'forma_entrega', 'forma_pago']
+        fields = ['username', 'email', 'first_name', 'last_name', 'forma_entrega', 'forma_pago', 'domicilio']
