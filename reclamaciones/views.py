@@ -75,3 +75,9 @@ def crear_reclamacion_sinloguear(request, pedido_id):
         
 
     return render(request, 'crear_reclamacion.html', {'form': form, 'pedido': pedido})
+
+def listar_reclamaciones_pedido(request, pedido_id):
+    pedido = get_object_or_404(Pedido, id=pedido_id)
+    reclamaciones = Reclamacion.objects.filter(pedido=pedido)
+
+    return render(request, 'listar_reclamaciones_pedido.html', {'pedido': pedido, 'reclamaciones': reclamaciones})
