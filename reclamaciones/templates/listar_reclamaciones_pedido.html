@@ -1,0 +1,30 @@
+{% extends 'piezasRevive/base.html' %}
+
+{% block content %}
+<head>
+    <style>
+
+      a.nombre {
+        color:  #222831;
+      }
+  
+      a.nombre:hover {
+        color: #00ADB5;
+      }
+    </style>
+  </head>
+  <h2>Reclamaciones del Pedido {{ pedido.id }}</h2>
+
+  {% if reclamaciones %}
+    <ul>
+      {% for reclamacion in reclamaciones %}
+      
+        <li>
+          <a class="nombre" href="{% url 'reclamaciones:detalle_reclamacion' reclamacion.id %}">{{ reclamacion.motivo }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No hay reclamaciones para este pedido.</p>
+  {% endif %}
+{% endblock %}

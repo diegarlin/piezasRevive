@@ -1,3 +1,4 @@
 Pillow==10.1.0
 django-mathfilters
-stripe 
+stripe
+django-anymail

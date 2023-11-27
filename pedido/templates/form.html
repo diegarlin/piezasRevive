@@ -4,31 +4,19 @@
 {% block title %}Piezas Revive{% endblock %}
 
 {% block content %}
-
-
-<!doctype html>
-<html lang="es">
-
-
-<body>
-
-  <div class="container my-2">
+  <div class="container-fluid my-2">
     {% if messages %}
       {% for message in messages %}
-          <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}</div>
+        <div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}</div>
       {% endfor %}
     {% endif %}
     <h1 class="text-center">Completar pedido</h1>
-    <div class="row justify-content-center">
-      
-      <div class="col-md-8">
-        
+      <div>
         <form action="{% url 'pedidos:procesar_pedido' %}" method="post">
           {% csrf_token %}
-
           <div class="form-group">
-              <label for="telefono">Teléfono: </label>
-              <input required=true class="form-control" id="telefono" type="tel" pattern="^\+?(6\d{2}|7[1-9]\d{1})\d{6}$" name="telefono" value="{{ pedido.telefono }}" placeholder="606424645">
+            <label for="telefono">Teléfono: </label>
+            <input required=true class="form-control" id="telefono" type="tel" pattern="^\+?(6\d{2}|7[1-9]\d{1})\d{6}$" name="telefono" value="{{ pedido.telefono }}" placeholder="606424645">
           </div>
           <div class="form-group">
             <label for="direccion">Direccion: </label>
@@ -53,7 +41,6 @@
               <option value="tarjeta">Tarjeta</option>
             </select>
           </div>
-          
           <div class="form-group">
             <label for="formaPago">Forma entrega: </label>
             <select required=true class="form-control" name="formaEntrega">
@@ -62,21 +49,12 @@
             </select>
           </div>
           
-          <button class="btn btn-success btn-block" type="submit">Hacer pedido</button>
+          <button class="btn btn-primary" type="submit">Hacer pedido</button>
         </form>
-      </div>
-      <div class="col-md-4 my-1">
-              
-    
-    </div>
     </div>
   </div>
-    </div>
-      
-</body>
-  
-<script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-</html>
+
+  <!-- Agregué Bootstrap JS al final del archivo -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-rn6EC3/Bm9ZjZsOq8iQc8ADTFSSAcx6is2A8Yz4l46ldpc+5q98eNR/Td+QDc8H" crossorigin="anonymous"></script>
 
 {% endblock %}
-
