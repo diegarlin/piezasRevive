@@ -11,6 +11,7 @@ from django.utils.html import strip_tags
 from django.core.mail import send_mail
 from django.conf import settings
 from pagos.views import success
+from piezasRevive.models import PerfilUsuario
 
 # Create your views here.
 
@@ -33,9 +34,13 @@ def procesar_pedido(request):
 def hacer_pedido(request):
     pedido=Pedido()
     if request.user.is_authenticated:
+        pedido_usuario = PerfilUsuario.objects.get(usuario= request.user)
         pedido.nombre_cliente = request.user.first_name
         pedido.apellido_cliente = request.user.last_name
         pedido.email = request.user.email
+        pedido.forma_entrega = pedido_usuario.forma_entrega
+        pedido.direccion = pedido_usuario.domicilio
+        pedido.forma_pago = pedido_usuario.forma_pago
     else:
         pedido.nombre_cliente = ""
         pedido.apellido_cliente = ""
