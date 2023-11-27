@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 def index(request):
-    return render(request, 'piezasRevive/index.html')
+    return redirect("/product/")
 
 def register_view(request):
     if request.method == 'POST':
