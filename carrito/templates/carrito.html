@@ -5,29 +5,8 @@
 
 {% block content %}
 
-<head>
-  <style>
-    .limpiar-carrito {
-      color: #333A42;
-    }
-    input.form-control {
-      margin: auto;
-    }
-    .btn-group {
-      width: 100%;
-    }
 
-    a.nombre {
-      color:  #222831;
-    }
-
-    a.nombre:hover {
-      color: #00ADB5;
-    }
-  </style>
-</head>
-
-<div class="container d-flex justify-content-center align-items-center vh-100">
+<div class="container d-flex ">
   <table class="table table-bordered" style="margin-top: 20px; margin-left: 20px;">
     <thead class="thead-dark">
       <tr>
@@ -42,7 +21,7 @@
       {% if request.session.carrito.items %}
       {% for key, value in request.session.carrito.items %}
       <tr class="text-center">
-        <td><a class="nombre" href="/product/details/{{value.producto_id}}">{{value.nombre}}</a></td>
+        <td><a class="btn btn-transparent" href="/product/details/{{value.producto_id}}">{{value.nombre}}</a></td>
         <td style="text-align: center;">{{value.cantidad}}</td>
         <td>
           <form class="prod d-flex align-items-center" method="GET">
@@ -62,16 +41,12 @@
         <td tyle="text-align: center;"> {{value.precio}} € </td>
       </tr>
       {% endfor %}
-      <tr>
-      <td colspan="3">
-        Gastos de envío: {{carrito.gastos_envio}} €
-      </td>
-      </tr>
+      
       {% else %}
       <tr>
-        <td colspan="3" class="text-center">
+        <td colspan="4" class="text-center">
           <div class="alert alert-danger">
-            <p style="background-color: red; border-radius: 5%; color: white; width:25%; ">Sin Productos</p>
+            Sin Productos
           </div>
         </td>
       </tr>
@@ -80,23 +55,30 @@
 
     <tfoot>
       <tr>
-        <td colspan="3">
-          Total: {{carrito.precio_final}} €
+        <td colspan="4">
+          <hr><h6>Total: {{carrito.precio_final}} €</h6></hr>
+          <h6>Gastos de envío: {{carrito.gastos_envio}} €</h6>
         </td>
-        <td colspan="3" style="text-align: center;">
-          <a class="limpiar-carrito" href="{% url 'carrito:limpiar' %}" class="text-center">Limpiar Carrito</a>
-        </td>
-        {% if request.session.carrito.items %}
-        <td colspan="3" style="text-align: center;">
-          <a class="limpiar-carrito" href="{% url 'pedidos:hacer_pedido' %}" class="btn btn-sm btn-success">Hacer pedido</a>
-        </td>
-        {% endif %}
+        
       </tr>
      
       
     </tfoot>
 
   </table>
-</div>
 
+  
+    
+</div>
+<div class="container d-flex ">
+<a class="login-button" href="{% url 'carrito:limpiar' %}" class="text-center">Limpiar Carrito</a>
+  
+  {% if request.session.carrito.items %}
+  
+    <a class="login-button" href="{% url 'pedidos:hacer_pedido' %}" class="btn btn-sm btn-success">Hacer pedido</a>
+  
+  {% endif %}
+</div>
 {% endblock %}
+
+

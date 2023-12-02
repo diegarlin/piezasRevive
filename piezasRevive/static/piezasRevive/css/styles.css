@@ -82,6 +82,8 @@ header {
     margin-right: 10px;
 }
 
+
+
 .register-button {
     background-color: #393E46;
     color: #EEEEEE;
@@ -183,6 +185,9 @@ button:hover {
     background-color: #222831;
 }
 
+.login-button:hover{
+    background-color: #393E46;
+}
 h2.mb-4{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #393E46;
@@ -250,4 +255,13 @@ ul.errorlist.nonfield li {
 .btn-secondary,
 .btn-success {
     width: 35px;
+    background-color: #00ADB5;
+}
+
+.col-lg-6 {
+    margin: 0px;
+}
+
+#thumbnail-detalles {
+    width: 100%;
 }

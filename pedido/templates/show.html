@@ -5,86 +5,40 @@
 {% block title %}Piezas Revive{% endblock %}
 
 {% block content %}
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <table class="table table-bordered" style="margin-top: 20px; margin-left: 20px;">
+    <thead class="thead-dark">
+      <tr>
+        <th style="width: 180px;">Producto</th>
+        <th style="width: 100px;">Unidades</th>
+        <th style="width: 150px;">Suma</th>
+      </tr>
+    </thead>
 
+    <tbody>
+      {% for linea in lineas_pedido %}
+      <tr class="text-center">
+        <td><a class="btn btn-transparent" href="/product/details/{{linea.producto_id}}">{{linea.producto.nombre}}</a></td>
+        <td style="text-align: center;">{{linea.cantidad}}</td>
+        <td tyle="text-align: center;">  {{linea.cantidad |mul:linea.producto.precio }} € </td>
+      </tr>
+      {% endfor %}
+    </tbody>
 
-<head>
-    <style>
+    <tfoot>
+      <tr>
+        <td> <p>Estado: <b>{% if pedido.estado_pedido == 'en_espera' %}en espera{% else %}{{pedido.estado_pedido}}{% endif %}</b></p></td>
+        <td><p>Forma de entrega: <b>{{ pedido.forma_entrega }}</b></p></td>
+        <td><p><a class="login-button" href="/reclamaciones/{{pedido_id}}">Poner una reclamacion</a></p>
+            <p><a class="login-button" href="/listar_reclamaciones_pedido/{{pedido_id}}">Listar reclamaciones</a></p>
+        </td>
 
-      a.nombre {
-        color:  #222831;
-      }
-  
-      a.nombre:hover {
-        color: #00ADB5;
-      }
-    </style>
-  </head>
-      <div class="container my-2"></div>
+      </tr>
+     
+      
+    </tfoot>
 
-        <div class="col-md-8">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th colspan="3" class="text-center">
-                            Pedido {{pedido.id}}
-                        </th>
-                    </tr>
-                    <tr>
-                        <th style="width: 175px;">Producto</th>
-                        <th style="width: 50px;">Unidades</th>
-                        <th style="width: 125px;">Suma</th>
-                    </tr>
-                </thead>
-        
-                <tbody>
-            
-                    {% for linea in lineas_pedido %}
-        
-                        <tr class="text-center">
-        
-                            <td>{{linea.producto.nombre}}</td>
-                            <td>{{linea.cantidad}}</td>
-                            <td>
-        
-                                {{linea.cantidad |mul:linea.producto.precio }} €
-        
-                            </td>
-        
-                        </tr>
-        
-        
-        
-                    {% endfor %}
-
-            
-                </tbody>
-            
-                <tfoot>
-            
-                    <tr>
-            
-                        <td colspan="3">
-                            Total: {{total}} €
-            
-                        </td>
-            
-                    </tr>
-            
-                </tfoot>
-            
-            
-            
-            </table>
-            <div>
-                <p>Estado: <b>{% if pedido.estado_pedido == 'en_espera' %}en espera{% else %}{{pedido.estado_pedido}}{% endif %}</b></p>
-                <p>Forma de entrega: <b>{{ pedido.forma_entrega }}</b></p>
-                <p><a class="nombre" href="/reclamaciones/{{pedido_id}}">Poner una reclamacion</a></p>
-                <p><a class="nombre" href="/listar_reclamaciones_pedido/{{pedido_id}}">Listar reclamaciones</a></p>
-            </div>
-        </div>
-      </div>
-
-  <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-
+  </table>
+</div>
+<script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 {% endblock %}

@@ -13,7 +13,9 @@
       }
     </style>
   </head>
-  <h2>Reclamaciones del Pedido {{ pedido.id }}</h2>
+  
+  <div style="margin: 10px auto; width: fit-content;">
+  <h2 >Reclamaciones del Pedido {{ pedido.id }}</h2>
 
   {% if reclamaciones %}
     <ul>
@@ -27,4 +29,5 @@
   {% else %}
     <p>No hay reclamaciones para este pedido.</p>
   {% endif %}
+  </div>
 {% endblock %}
