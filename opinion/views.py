@@ -6,7 +6,7 @@ from producto.models import Producto
 from piezasRevive.models import PerfilUsuario
 from django.contrib.auth.models import User
 
-@login_required
+@login_required(login_url='/login/')
 def crear_opinion(request, producto_id):
     producto = Producto.objects.get(id=producto_id)
 

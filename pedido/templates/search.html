@@ -3,12 +3,6 @@
 
     {% block content %}      
   		<section class="py-5 text-center container">
-
-			{% if messages %}
-				{% for message in messages %}
-						<div class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}</div>
-				{% endfor %}
-			{% endif %}
 			  
 	    <div class="row py-lg-5">
 		      <div class="col-lg-6 col-md-8 mx-auto">

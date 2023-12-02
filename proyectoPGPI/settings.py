@@ -16,7 +16,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-BASEURL = 'http://127.0.0.1:8000'
+BASEURL = 'http://localhost:8080'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-dch5g%=sx80b^owezel5gv7am5qq=b!e37&p&qqhu0&ler^360
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['diegarlin.pythonanywhere.com', 'www.diegarlin.pythonanywhere.com']
 
 
 # Application definition
@@ -150,3 +150,4 @@ EMAIL_HOST_USER="piezasrevive@outlook.com"
 EMAIL_HOST_PASSWORD="rdwamwrwwuwbudbh8@"
 # rdwamwrwwuwbudbh8@ outlook
 # rdwamwrwwuwbudbh gmail
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
