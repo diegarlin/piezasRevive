@@ -42,6 +42,31 @@
         </div>
       </div>
 
+      <div class="mb-3">
+        <label for="{{ form.domicilio.id_for_label }}">Domicilio</label>
+        {{ form.domicilio }}
+        <div class="invalid-feedback">
+          {{ form.domicilio.errors.as_text }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="{{ form.forma_entrega.id_for_label }}">Forma de Entrega</label>
+        {{ form.forma_entrega }}
+        <div class="invalid-feedback">
+          {{ form.forma_entrega.errors.as_text }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="{{ form.forma_pago.id_for_label }}">Forma de Pago</label>
+        {{ form.forma_pago }}
+        <div class="invalid-feedback">
+          {{ form.forma_pago.errors.as_text }}
+        </div>
+      </div>
+
+      
 
       <button type="submit" class="btn btn-primary">Guardar Cambios</button>
     </form>

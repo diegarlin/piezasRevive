@@ -8,6 +8,32 @@ class RegistroUsuarioForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=True, label="Nombre")
     last_name = forms.CharField(max_length=30, required=True, label="Apellidos")
 
+    EXPRESS = 'express'
+    NORMAL = 'normal'
+    
+    FORMA_ENTREGA = (
+        (EXPRESS, 'express'),
+        (NORMAL, 'normal'),     
+    )
+
+    forma_entrega = forms.ChoiceField(
+        choices=FORMA_ENTREGA,
+    )
+
+    CONTRAREEMBOLSO = 'contrareembolso'
+    TARJETA = 'tarjeta'
+
+    FORMA_PAGO = (
+        (CONTRAREEMBOLSO, 'contrareembolso'),
+        (TARJETA, 'tarjeta'),     
+    )
+
+    forma_pago = forms.ChoiceField(
+        choices=FORMA_PAGO,
+    )
+
+    domicilio = forms.CharField(max_length=30, required=True, label="Domicilio")
+
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if User.objects.filter(email=email).exists():
@@ -16,7 +42,7 @@ class RegistroUsuarioForm(UserCreationForm):
     
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name', 'password1', 'password2']
+        fields = ['username', 'email', 'first_name', 'last_name', 'password1', 'password2', 'forma_pago', 'forma_entrega', 'domicilio']
 
 class CorreoElectronicoAuthenticationForm(AuthenticationForm):
     username = forms.EmailField(widget=forms.TextInput(attrs={'autofocus': True}), label="Email")
@@ -30,6 +56,32 @@ class EditarPerfilForm(UserChangeForm):
     first_name = forms.CharField(max_length=30, required=True, label="Nombre")
     last_name = forms.CharField(max_length=30, required=True, label="Apellidos")
 
+    EXPRESS = 'express'
+    NORMAL = 'normal'
+    
+    FORMA_ENTREGA = (
+        (EXPRESS, 'express'),
+        (NORMAL, 'normal'),     
+    )
+
+    forma_entrega = forms.ChoiceField(
+        choices=FORMA_ENTREGA,
+    )
+
+    CONTRAREEMBOLSO = 'contrareembolso'
+    TARJETA = 'tarjeta'
+
+    FORMA_PAGO = (
+        (CONTRAREEMBOLSO, 'contrareembolso'),
+        (TARJETA, 'tarjeta'),     
+    )
+
+    forma_pago = forms.ChoiceField(
+        choices=FORMA_PAGO,
+    )
+
+    domicilio = forms.CharField(max_length=30, required=True, label="Domicilio")
+
     def clean_email(self):
         email = self.cleaned_data.get('email')
         # Excluir el usuario actual de la validación
@@ -39,4 +91,4 @@ class EditarPerfilForm(UserChangeForm):
     
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name']
+        fields = ['username', 'email', 'first_name', 'last_name', 'forma_entrega', 'forma_pago', 'domicilio']

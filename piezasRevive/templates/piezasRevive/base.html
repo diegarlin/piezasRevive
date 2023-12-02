@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Título por defecto{% endblock %}</title>
+    <title>{% block title %}Piezas Revive{% endblock %}</title>
     <link rel="icon" type="image/png" href="{% static 'piezasRevive/images/logo.png' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -21,11 +21,19 @@
                 <a href="/"><span class="company-name">PiezasRevive</span></a>
             </div>
             <div>
-                <a href="/product">Tienda</a>
+                <a href="/product">Tienda</a>   
             </div>
             <div>
                 <a href="/carrito"><i class="fa fa-shopping-cart" style="font-size:36px"></i></a>
             </div>
+            <div>
+                <a class="nav-link" href="/buscarPedido/">Buscar pedido </a>
+            </div>
+            {% if user.is_authenticated %}
+            <div>
+                <a href="/pedidos">Mis pedidos</span></a>
+            </div>
+            {% endif %}
             <div class="button-container">
                 {% if user.is_authenticated %}
                     <button class="logout-button" onclick="logout()">Logout</button>
@@ -77,7 +85,10 @@
                 <a href="#" target="_blank">Instagram</a>
             </div>
         </div>
-        <div class="copyright">
+        <div class="returns-policy" style="font-size:11px;">
+            <p>Nota: No se admiten devoluciones en las compras realizadas en nuestra tienda en línea.</p>
+        </div>
+        <div class="copyright" style="font-size:11px;">
             <p>&copy; 2023 PiezasRevive S.L. Todos los derechos reservados.</p>
         </div>
     </footer>

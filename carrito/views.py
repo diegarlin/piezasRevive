@@ -67,7 +67,6 @@ def limpiar_carrito(request):
 
 def ver_carrito(request):
     carrito = Carrito(request)
-    
     return render(request, 'carrito.html', {'carrito': carrito})
 
 
