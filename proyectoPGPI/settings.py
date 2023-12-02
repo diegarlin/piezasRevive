@@ -150,3 +150,4 @@ EMAIL_HOST_USER="piezasrevive@outlook.com"
 EMAIL_HOST_PASSWORD="rdwamwrwwuwbudbh8@"
 # rdwamwrwwuwbudbh8@ outlook
 # rdwamwrwwuwbudbh gmail
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
