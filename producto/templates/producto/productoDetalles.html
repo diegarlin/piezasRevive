@@ -4,32 +4,61 @@
 {% block content %}
 
 <head>
-    <style>
-        input.form-control {
-          margin: auto;
-        }
-        .btn-group {
-          width: 100%;
-        }
-        form{
-            width: 130px;
-        }
-      </style>
+  <style>
+    input.form-control {
+      margin: auto;
+    }
+
+    .btn-group {
+      width: 100%;
+    }
+
+    form {
+      width: 130px;
+    }
+
+    .container {
+      display: flex;
+    }
+
+    .columna {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .boton-redireccion {
+      display: inline-block;
+      margin-left: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      text-align: center;
+      text-decoration: none;
+      background-color: #3498db;
+      color: #fff;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .boton-redireccion:hover {
+      background-color: #2980b9;
+    }
+  </style>
 </head>
 <div class="container my-5">
-    <div class="row">
-        <div class="col-lg-6" id="img">
-            <img src={{producto.imagen}} alt="..." style="width: 400px;">
-        </div>
-        <div class="col-lg-6">
-            <h2>{{ producto.nombre }}</h2>
-            <p>{{ producto.descripcion }}</p>
-            <p><strong>Precio:</strong> {{ producto.precio }}€</p>
-            <p><strong>Stock:</strong> {{ producto.stock }}</p>
-            <p><strong>Marca:</strong> {{ producto.marca }}</p>
-            <p><strong>Categoria:</strong> {{ producto.categoria }}</p>
-            {% if producto.stock > 0 %}
-                    <!--
+  <div class="container" style="margin-top: 10px; margin-left: 10px;">
+    <div class="columna" id="img">
+      <img src={{producto.imagen}} alt="..." style="width: 400px;">
+    </div>
+    <div class="columnas">
+      <h2>{{ producto.nombre }}</h2>
+      <p>{{ producto.descripcion }}</p>
+      <p><strong>Precio:</strong> {{ producto.precio }}€</p>
+      <p><strong>Stock:</strong> {{ producto.stock }}</p>
+      <p><strong>Marca:</strong> {{ producto.marca }}</p>
+      <p><strong>Categoria:</strong> {{ producto.categoria }}</p>
+      <p><strong>Añadir al Carrito:</strong></p>
+      {% if producto.stock > 0 %}
+      <!--
                     <form action="/addproduct/{{producto.id}}" method="GET" id="add_product">
                         <input type="number" min="1" max="{{producto.stock}}" id="amount"
                             name="amount" placeholder="Selecciona una cantidad:" style="width: 50%;">
@@ -37,23 +66,56 @@
                                 class="fas fa-shopping-basket"></i></button>
                     </form>
                     -->
-                    <form method="GET">
-                        <div class="input-group mb-3">
-                          <div class="input-group-prepend">
-                            <button type="submit" class="btn btn-secondary" formaction="{% url 'carrito:restar' producto.id %}" style="width: 35px;">-</button>
-                          </div>
-                          <input class="form-control" type="number" placeholder="Unidades" size="1" name="cantidad" value="1" min="1" max="{{producto.stock}}" required=true>
-                          <input type="hidden" name="next" value="{{ request.path }}">
-                          <div class="input-group-append">
-                            <button type="submit" class="btn btn-success" formaction="{% url 'carrito:agregar' producto.id %}" style="width: 35px;">+</button>
-                          </div>
-                        </div>
-                    </form>
-                      <br>	
-                    {% else %}
-                    <span style="background-color: red; border-radius: 5%; color: white; min-width: 200%;">SIN STOCK</span>
-                    {% endif %}
+      <form method="GET">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <button type="submit" class="btn btn-secondary" formaction="{% url 'carrito:restar' producto.id %}"
+              style="width: 35px;">-</button>
+          </div>
+          <input class="form-control" type="number" placeholder="Unidades" size="1" name="cantidad" value="1" min="1"
+            max="{{producto.stock}}" required=true>
+          <input type="hidden" name="next" value="{{ request.path }}">
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-success" formaction="{% url 'carrito:agregar' producto.id %}"
+              style="width: 35px;">+</button>
+          </div>
         </div>
+      </form>
+      <a href="/crear_opinion/{{producto.id}}" class="boton-redireccion">
+        Crear Reseña
+      </a>
+      <br>
+      {% else %}
+      <span style="background-color: red; border-radius: 5%; color: white; min-width: 200%;">SIN STOCK</span>
+      {% endif %}
     </div>
+  </div>
 </div>
-{% endblock %}
+<div style="margin-left: 10px;">
+ 
+  <p><strong>Reseñas del Producto:</strong></p>
+  {% if opiniones %}
+  <div class="container d-flex justify-content-center align-items-center vh-100">
+    <table class="table table-bordered" style="margin-top: 20px; margin-left: 20px;">
+      <thead class="thead-dark">
+        <tr>
+          <th style="width: 100px; text-align: left;">Usuario</th>
+          <th style="width: 400px;">Comentario</th>
+        </tr>
+      </thead>
+
+      {% for opinion in opiniones%}
+      <tbody>
+        <tr>
+          <td>{{opinion.usuario.username}}</td>
+          <td>{{opinion.comentario}}</td>
+        </tr>
+      </tbody>
+      {% endfor %}
+    </table>
+    {% else %}
+    <p>No hay opiniones sobre este producto</p>
+    {% endif %}
+    </div>
+  </div>
+  {% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'piezasRevive/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .boton-redireccion {
+        display: inline-block;
+        margin-left: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        background-color: #3498db;
+        color: #fff;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .boton-redireccion:hover {
+        background-color: #2980b9;
+    }
+</style>
+<h1>Crear Opinión</h1>
+
+<form method="post" action="{% url 'opinion:crear_opinion' producto.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Enviar</button>
+</form>
+
+<a class="boton-redireccion" href="/product/details/{{producto.id}}">Volver al producto</a>
+
+{% endblock %}
