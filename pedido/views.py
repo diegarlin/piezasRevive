@@ -58,13 +58,13 @@ def mostrar_pedido(request):
     if ('pedido_id' in request.POST):
         if not Pedido.objects.filter(id=request.POST['pedido_id']).exists():
             messages.error(request, "No existe pedido con dicho identificador. Pruebe de nuevo")
-            return redirect("/pedidos/buscarPedido")
+            return redirect("/buscarPedido")
         pedido = Pedido.objects.get(id=request.POST['pedido_id'])
         request.session['old_pedido_id'] = request.POST['pedido_id']
     else:
         if not Pedido.objects.filter(id=request.session['old_pedido_id']).exists():
             messages.error(request, "No existe pedido con dicho identificador. Pruebe de nuevo")
-            return redirect("/pedidos/buscarPedido")
+            return redirect("/buscarPedido")
         pedido = Pedido.objects.get(id=request.session['old_pedido_id'])
 
     itemspedido = ItemPedido.objects.filter(pedido=pedido.pk)

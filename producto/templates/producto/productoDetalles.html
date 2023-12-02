@@ -81,6 +81,9 @@
           </div>
         </div>
       </form>
+      <a href="/crear_opinion/{{producto.id}}" class="boton-redireccion">
+        Crear Reseña
+      </a>
       <br>
       {% else %}
       <span style="background-color: red; border-radius: 5%; color: white; min-width: 200%;">SIN STOCK</span>
@@ -89,9 +92,7 @@
   </div>
 </div>
 <div style="margin-left: 10px;">
-  <a href="/crear_opinion/{{producto.id}}" class="boton-redireccion">
-    Crear Reseña
-  </a>
+ 
   <p><strong>Reseñas del Producto:</strong></p>
   {% if opiniones %}
   <div class="container d-flex justify-content-center align-items-center vh-100">
