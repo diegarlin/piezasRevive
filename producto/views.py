@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, get_object_or_404
 
 from producto.models import Producto
+from opinion.models import Opinion
 
 Categorias = ('Interior',
     'Direccion',
@@ -65,9 +66,13 @@ def get_products_by_tuples(nombre_de_producto_buscado=None, categoria_buscada=No
 # @login_required
 def detalles(request, product_id):
     producto = Producto.objects.get(id=product_id)
-    #form = {"producto":producto}
+    opiniones_todas = Opinion.objects.all()
+    opiniones=[]
+    for opinion in opiniones_todas:
+        if opinion.producto==producto:
+            opiniones.append(opinion)
     
-    return render(request, 'producto/productoDetalles.html', {'producto': producto})
+    return render(request, 'producto/productoDetalles.html', {'producto': producto, 'opiniones': opiniones})
 
 
 '''
