@@ -24,6 +24,10 @@ def register_view(request):
             login(request, user)
             messages.success(request, '¡Registro exitoso!')
             return redirect('login')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f'{field}: {error}')
     else:
         form = RegistroUsuarioForm()
 
@@ -39,7 +43,11 @@ def login_view(request):
             user = authenticate(request, username=email, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('index') 
+                return redirect('index')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f'{field}: {error}') 
     else:
         if request.user.is_authenticated:
             return redirect('index')
@@ -84,6 +92,10 @@ def editar_perfil(request):
 
             messages.success(request, 'Perfil actualizado exitosamente.')
             return redirect('index')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f'{field}: {error}')
     else:
         form_data = {'forma_entrega': '', 'forma_pago': '', 'domicilio': ''}
         if perfil_usuario:
