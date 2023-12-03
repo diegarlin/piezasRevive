@@ -1,0 +1,21 @@
+{% extends 'piezasRevive/base.html' %}
+{% load static %}  
+
+    {% block content %}      
+  		<section class="py-5 text-center container">
+			  
+	    <div class="row py-lg-5">
+		      <div class="col-lg-6 col-md-8 mx-auto">
+		      		<h1 class="fw-light">Buscar pedido</h1>
+			
+			      <form method="post" action="{% url 'pedidos:mostrar_pedido' %}">
+				        <div class="form-group">
+				          <input required=true type="number" min="1" class="form-control" id="pedido_id"  placeholder="Introduzca el identificador" name="pedido_id">
+				        </div>
+				        <button type="submit" class="btn btn-primary">Buscar</button>
+			      </form>
+			      
+		    </div>
+	    </div>
+    	</section>
+    {% endblock content %}

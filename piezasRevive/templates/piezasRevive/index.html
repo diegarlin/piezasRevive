@@ -1,13 +1,19 @@
 <!-- piezasRevive/templates/index.html -->
+{% extends 'piezasRevive/base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Mi Proyecto</title>
-</head>
+
+{% block title %}Piezas Revive{% endblock %}
+
+{% block content %}
+
 <body>
     <h1>Bienvenido a mi proyecto</h1>
-    <img src="{% static imagen_path %}" alt="Mi Imagen">
+    <img src="{% static 'piezasRevive/images/fondo.jpg' %}" alt="Mi Imagen">
+    <p>HOLAHOLAHOLA</p>
 </body>
-</html>
+
+{% endblock %}
+
+
+

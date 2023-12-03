@@ -1,0 +1,84 @@
+{% extends 'piezasRevive/base.html' %}
+{% load static %}
+
+{% block title %}Piezas Revive{% endblock %}
+
+{% block content %}
+
+
+<div class="container d-flex ">
+  <table class="table table-bordered" style="margin-top: 20px; margin-left: 20px;">
+    <thead class="thead-dark">
+      <tr>
+        <th style="width: 180px;">Producto</th>
+        <th style="width: 100px;">Unidades</th>
+        <th style="width: 140px;">Editar</th>
+        <th style="width: 150px;">Suma</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% if request.session.carrito.items %}
+      {% for key, value in request.session.carrito.items %}
+      <tr class="text-center">
+        <td><a class="btn btn-transparent" href="/product/details/{{value.producto_id}}">{{value.nombre}}</a></td>
+        <td style="text-align: center;">{{value.cantidad}}</td>
+        <td>
+          <form class="prod d-flex align-items-center" method="GET">
+            <div class="input-group mb-3 btn-group">
+              <div class="input-group-prepend justify-content-center">
+                <button type="submit" class="btn btn-secondary" formaction="{% url 'carrito:restar' key %}">-</button>
+              </div>
+              <input class="form-control text-center" type="number" placeholder="Unidades" size="1" name="cantidad" value="1"
+                min="1" max="{{value.cantidad}}" required=true style="width: 50px;">
+              <div class="input-group-append justify-content-center">
+                <button type="submit" class="btn btn-success" formaction="{% url 'carrito:agregar' key %}">+</button>
+              </div>
+              <input type="hidden" name="next" value="{{ request.path }}">
+            </div>
+          </form>
+        </td>
+        <td tyle="text-align: center;"> {{value.precio}} € </td>
+      </tr>
+      {% endfor %}
+      
+      {% else %}
+      <tr>
+        <td colspan="4" class="text-center">
+          <div class="alert alert-danger">
+            Sin Productos
+          </div>
+        </td>
+      </tr>
+      {% endif %}
+    </tbody>
+
+    <tfoot>
+      <tr>
+        <td colspan="4">
+          <hr><h6>Total: {{carrito.precio_final}} €</h6></hr>
+          <h6>Gastos de envío: {{carrito.gastos_envio}} €</h6>
+        </td>
+        
+      </tr>
+     
+      
+    </tfoot>
+
+  </table>
+
+  
+    
+</div>
+<div class="container d-flex ">
+<a class="login-button" href="{% url 'carrito:limpiar' %}" class="text-center">Limpiar Carrito</a>
+  
+  {% if request.session.carrito.items %}
+  
+    <a class="login-button" href="{% url 'pedidos:hacer_pedido' %}" class="btn btn-sm btn-success">Hacer pedido</a>
+  
+  {% endif %}
+</div>
+{% endblock %}
+
+

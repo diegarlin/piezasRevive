@@ -1,0 +1,78 @@
+{% extends 'piezasRevive/base.html' %}
+{% load static %}
+
+{% block title %}Piezas Revive{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2 class="mb-4">Registro de Usuario</h2>
+    <form method="post" action="{% url 'register' %}" class="needs-validation" novalidate>
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      <div class="mb-3">
+        {{ form.username.label_tag }}
+        {{ form.username }}
+        <div class="invalid-feedback">
+          {{ form.username.errors.as_text }}
+        </div>
+      </div>
+      <div class="mb-3">
+        {{ form.email.label_tag }}
+        {{ form.email }}
+        <div class="invalid-feedback">
+          {{ form.email.errors.as_text }}
+        </div>
+      </div>
+      <div class="mb-3">
+        {{ form.first_name.label_tag }}
+        {{ form.first_name }}
+        <div class="invalid-feedback">
+          {{ form.first_name.errors.as_text }}
+        </div>
+      </div>
+      <div class="mb-3">
+        {{ form.last_name.label_tag }}
+        {{ form.last_name }}
+        <div class="invalid-feedback">
+          {{ form.last_name.errors.as_text }}
+        </div>
+      </div>
+      <div class="mb-3">
+        {{ form.password1.label_tag }}
+        {{ form.password1 }}
+        <div class="invalid-feedback">
+          {{ form.password1.errors.as_text }}
+        </div>
+      </div>
+      <div class="mb-3">
+        {{ form.password2.label_tag }}
+        {{ form.password2 }}
+        <div class="invalid-feedback">
+          {{ form.password2.errors.as_text }}
+        </div>
+      </div>
+      <div class="mb-3">
+        {{ form.domicilio.label_tag }}
+        {{ form.domicilio }}
+        <div class="invalid-feedback">
+          {{ form.domicilio.errors.as_text }}
+        </div>
+      </div>
+      <div class="mb-3">
+        {{ form.forma_entrega.label_tag }}
+        {{ form.forma_entrega }}
+        <div class="invalid-feedback">
+          {{ form.forma_entrega.errors.as_text }}
+        </div>
+      </div>
+      <div class="mb-3">
+        {{ form.forma_pago.label_tag }}
+        {{ form.forma_pago }}
+        <div class="invalid-feedback">
+          {{ form.forma_pago.errors.as_text }}
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Registrarse</button>
+    </form>
+  </div>
+{% endblock %}

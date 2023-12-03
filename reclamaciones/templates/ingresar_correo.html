@@ -1,0 +1,11 @@
+{% extends 'piezasRevive/base.html' %}
+
+{% block content %}
+  <h2>Ingrese su correo</h2>
+  <form method="post">
+    {% csrf_token %}
+    <label for="correo">Correo:</label>
+    <input type="email" name="correo" required>
+    <button type="submit">Enviar</button>
+  </form>
+{% endblock %}

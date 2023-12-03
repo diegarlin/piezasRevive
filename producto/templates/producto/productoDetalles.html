@@ -1,0 +1,66 @@
+{% extends 'piezasRevive/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<head>
+</head>
+<div class="container my-5">
+  <div class="row">
+    <div class="col-lg-6">
+      <img src={{producto.imagen}} id="thumbnail-detalle" alt="..." style="width: 400px;">
+    </div>
+    <div class="col-lg-6">
+      <h2>{{ producto.nombre }}</h2>
+      <p>{{ producto.descripcion }}</p>
+      <p><strong>Precio:</strong> {{ producto.precio }}€</p>
+      <p><strong>Stock:</strong> {{ producto.stock }}</p>
+      <p><strong>Marca:</strong> {{ producto.marca }}</p>
+      <p><strong>Categoria:</strong> {{ producto.categoria }}</p>
+      <p><strong>Añadir al Carrito:</strong></p>
+      {% if producto.stock > 0 %}
+      <form method="GET">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <button type="submit" class="btn btn-success" formaction="{% url 'carrito:restar' producto.id %}"
+              style="width: 35px;">-</button>
+          </div>
+          <input class="form-control" type="number" placeholder="Unidades" size="1" name="cantidad" value="1" min="1"
+            max="{{producto.stock}}" required=true>
+          <input type="hidden" name="next" value="{{ request.path }}">
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-success" formaction="{% url 'carrito:agregar' producto.id %}"
+              style="width: 35px;">+</button>
+          </div>
+        </div>
+      </form>
+      <a href="/crear_opinion/{{producto.id}}" style="width:30%; align-text:center;"class="login-button">
+        Crear Reseña
+      </a>
+      <br>
+      {% else %}
+      <span style="background-color: red; border-radius: 5%; color: white; min-width: 200%;">SIN STOCK</span>
+      {% endif %}
+    </div>
+</div>
+</div>
+
+<div class="col-lg-12 mt-3">
+  <div style="margin: 0 auto; width: fit-content;">
+    <h5 ><strong>Opiniones de Usuarios</strong></h5>
+  </div>
+  {% if opiniones %}
+  {% for opinion in opiniones %}
+      <div class="card mb-2">
+          <div class="card-body">
+              <p><strong>Usuario:</strong> {{ opinion.usuario.username }}</p>
+              <p><strong>Comentario:</strong> {{ opinion.comentario }}/5</p>
+          </div>
+      </div>
+  {% endfor %}
+  {% else %}
+    <div class="alert alert-info text-center">
+        No tiene opiniones, ¡puedes ser el primero en comentar!
+    </div>
+  {% endif %}
+  {% endblock %}

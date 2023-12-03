@@ -1,0 +1,138 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Piezas Revive{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{% static 'piezasRevive/images/logo.png' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'piezasRevive/css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    
+</head>
+<body>
+
+    <header class="fixed-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <a href="/"><img src="{% static 'piezasRevive/images/logo.png' %}" alt="Logo" class="logo"></a>
+                <a href="/"><span class="company-name">PiezasRevive</span></a>
+            </div>
+            <div>
+                <a href="/product">Tienda</a>   
+            </div>
+            <div>
+                <a href="/carrito"><i class="fa fa-shopping-cart" style="font-size:36px"></i></a>
+            </div>
+            <div>
+                <a class="nav-link" href="/buscarPedido/">Buscar pedido </a>
+            </div>
+            {% if user.is_authenticated %}
+            <div>
+                <a href="/pedidos">Mis pedidos</span></a>
+            </div>
+            {% endif %}
+            <div class="button-container">
+                {% if user.is_authenticated %}
+                    <button class="logout-button" onclick="logout()">Logout</button>
+                    <a href="/edit"><span class="username">{{ user.first_name }} {{ user.last_name }}</span></a>
+                {% else %}
+                    <a href="/login"><button class="login-button">Login</button></a>
+                    <a href="/register"><button class="register-button">Registro</button></a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    {% if messages %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            {% for message in messages %}
+                var iconType = '{% if message.tags == "success" %}success{% elif message.tags == "info" %}info{% elif message.tags == "warning" %}warning{% elif message.tags == "error" %}error{% else %}info{% endif %}';
+                var timerDuration = {{ message.extra_tags.timer_duration|default:2000 }}; 
+                // Muestra la alerta por cada mensaje
+                Swal.fire({
+                    icon: iconType,
+                    text: '{{ message }}',
+                    showConfirmButton: false,
+                    timer: timerDuration 
+                });
+            {% endfor %}
+        });
+    </script>
+    {% endif %}
+
+    <main>
+        {% block content %}{% endblock %}
+        <!-- Este bloque será reemplazado por el contenido específico de cada página -->
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="company-info">
+                <h3>Información de la Empresa</h3>
+                <p>PIEZAS REVIVE S.L.</p>
+                <p>Dirección: Calle Principal, 123</p>
+                <p>Teléfono: 123-456-789</p>
+                <p>Email: info@piezasrevive.com</p>
+            </div>
+            <div class="social-media">
+                <h3>Redes Sociales</h3>
+                <a href="#" target="_blank">Facebook</a>
+                <a href="#" target="_blank">Twitter</a>
+                <a href="#" target="_blank">Instagram</a>
+            </div>
+        </div>
+        <div class="returns-policy" style="font-size:11px;">
+            <p>Nota: No se admiten devoluciones en las compras realizadas en nuestra tienda en línea.</p>
+        </div>
+        <div class="copyright" style="font-size:11px;">
+            <p>&copy; 2023 PiezasRevive S.L. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        function logout() {
+            var csrftoken = getCookie('csrftoken');
+            
+            fetch('/logout/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Redirigir a la página de inicio después del logout exitoso
+                    window.location.href = '/';
+                } else {
+                    console.error('Error al cerrar sesión');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+        
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+{% extends 'piezasRevive/base.html' %}
+{% load static %}
+{% load mathfilters %}
+
+{% block title %}Piezas Revive{% endblock %}
+
+{% block content %}
+
+<head>
+    <style>
+
+      a.nombre {
+        color:  #222831;
+      }
+  
+      a.nombre:hover {
+        color: #00ADB5;
+      }
+    </style>
+  </head>
+
+        {% for pedido, items in lineas_pedido.items %}
+        <div class="container d-flex justify-content-center align-items-center vh-20">
+            <table class="table table-bordered" style="margin-top: 20px; margin-left: 20px;">
+                <thead class="thead-dark">
+                    <tr>
+                        <th colspan="3" class="text-center">
+                            Pedido {{pedido.id}}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th style="width: 180px;">Producto</th>
+                        <th style="width: 100px;">Unidades</th>
+                        <th style="width: 150px;">Suma</th>
+                    </tr>
+                </thead>
+        
+                <tbody>
+                    {% for linea in items %}
+                    <tr class="text-center">
+                      <td><a class="btn btn-transparent" href="/product/details/{{linea.producto_id}}">{{linea.producto.nombre}}</a></td>
+                      <td style="text-align: center;">{{linea.cantidad}}</td>
+                      <td tyle="text-align: center;">  {{linea.cantidad |mul:linea.producto.precio }} € </td>
+                    </tr>
+                    
+                    {% endfor %}
+                  </tbody>
+            
+                    
+                <tfoot>
+                    <tr>
+                        <td><hr><b>Total:</b> {{pedido.precio_final}} €
+                            <p>Estado: <b>{% if pedido.estado_pedido == 'en_espera' %}en espera{% else %}{{pedido.estado_pedido}}{% endif %}</b></p>
+                            <p>Forma de entrega: <b>{{ pedido.forma_entrega }}</b></p></td>
+                            <div style="margin: 0 auto; width: fit-content;">
+                            <td style="margin:auto;" colspan="2"><hr><a class="login-button" href="/reclamaciones/{{pedido.id}}" style="width:50%;">Poner una reclamacion</a>
+                                <a class="login-button" href="/listar_reclamaciones_pedido/{{pedido.id}}" style="width:50%;">Listar reclamaciones</a>
+                            </td>
+                    </tr>
+                    
+                      
+                     
+              
+                    
+                   
+                    
+                  </tfoot>
+            
+            
+            </table>
+        </div>
+        {% endfor %}
+      </div>
+
+  
+  <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+{% endblock %}
