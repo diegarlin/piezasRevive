@@ -52,7 +52,6 @@ class Producto(models.Model):
 
     descripcion = models.TextField()
     precio = models.FloatField()
-    #precio = models.DecimalField(max_digits=10, decimal_places=2)
     imagen = models.URLField()
     stock = models.IntegerField()
 

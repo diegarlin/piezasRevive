@@ -90,7 +90,9 @@ def success(request):
     importe_total = sum([linea.producto.precio * linea.cantidad for linea in lineas_pedido])
     if(importe_total < 1000.0):
         pedido.gastos_envio = 8.0
-        pedido.save()
+
+    pedido.precio_final = importe_total + pedido.gastos_envio    
+    pedido.save()
     
     ItemPedido.objects.bulk_create(lineas_pedido)
 
