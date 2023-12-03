@@ -9,7 +9,7 @@ class Pedido(models.Model):
     apellido_cliente=models.CharField(max_length=50)
     email=models.EmailField()
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-
+    fecha_entrega_estimada = models.DateField(blank=True, null=True)
     EN_ESPERA = 'en_espera'
     ENVIADO = 'enviado'
     ENTREGADO = 'entregado'

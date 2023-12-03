@@ -20,6 +20,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
+import datetime
 
 
 import json
@@ -62,10 +63,15 @@ def success(request):
     email = request.session.get('email')
     forma_pago = request.session.get('forma_pago')
     forma_entrega = request.session.get('forma_entrega')
-    
+    print(forma_entrega)
+    if(forma_entrega == "express"):
+        fecha_entrega_estimada = datetime.datetime.now() + datetime.timedelta(days=2)
+    else:
+        fecha_entrega_estimada = datetime.datetime.now() + datetime.timedelta(days=4)
+
     carrito=Carrito(request)
     
-    pedido = Pedido(telefono=telefono, direccion=direccion, nombre_cliente=nombre, apellido_cliente=apellido, email=email, forma_pago=forma_pago, estado_pedido = "en_espera", forma_entrega=forma_entrega)
+    pedido = Pedido(telefono=telefono, direccion=direccion, nombre_cliente=nombre, apellido_cliente=apellido, email=email, fecha_entrega_estimada=fecha_entrega_estimada, forma_pago=forma_pago, estado_pedido = "en_espera", forma_entrega=forma_entrega)
     if request.user.is_authenticated:
         pedido.usuario = request.user #request.user
     pedido.save()

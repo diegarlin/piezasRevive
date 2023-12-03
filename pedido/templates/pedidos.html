@@ -50,11 +50,13 @@
                 <tfoot>
                     <tr>
                         <td><hr><b>Total:</b> {{pedido.precio_final}} €
-                            <p>Estado: <b>{% if pedido.estado_pedido == 'en_espera' %}en espera{% else %}{{pedido.estado_pedido}}{% endif %}</b></p>
-                            <p>Forma de entrega: <b>{{ pedido.forma_entrega }}</b></p></td>
+                        </br>Estado: <b>{% if pedido.estado_pedido == 'en_espera' %}en espera{% else %}{{pedido.estado_pedido}}{% endif %}</b></br>
+                           Fecha Entrega Estimada: <b>{{ pedido.fecha_entrega_estimada }}</b> 
+                            Forma de entrega: <b>{{ pedido.forma_entrega }}</b></td>
+                            <td><hr></td>
                             <div style="margin: 0 auto; width: fit-content;">
-                            <td style="margin:auto;" colspan="2"><hr><a class="login-button" href="/reclamaciones/{{pedido.id}}" style="width:50%;">Poner una reclamacion</a>
-                                <a class="login-button" href="/listar_reclamaciones_pedido/{{pedido.id}}" style="width:50%;">Listar reclamaciones</a>
+                            <td style="margin:auto;" colspan="2"><hr><a class="login-button" href="/reclamaciones/{{pedido.id}}" style="width:70%;">Poner una reclamacion</a>
+                                <a class="login-button" href="/listar_reclamaciones_pedido/{{pedido.id}}" style="width:70%;">Listar reclamaciones</a>
                             </td>
                     </tr>
                     
