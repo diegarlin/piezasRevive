@@ -139,7 +139,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', default='django-insecure-g%m5ipglj1-v7pcqvna$=cheoqai5!$5qwd+6uq2+hc0vi@u0z')
 
-STRIPE_SECRET_KEY = "sk_test_51M7L2EDyJyJFSwFPoOWqNkgXRDswEYGZmOqKvBhK8nJRZkwNdPFwdzOiYoAVsxLFhw2ceFH3AAM629NliYPC7T0q004Tk0L5JN"
+STRIPE_SECRET_KEY = "sk_test_51OJhFNK3zYI6R2PvjjfbNyNlfBDyQQ15mgs8qJJbNKYaQ8FHW05Rps8gjRoXeNlYoAgorfWKX3kKp1fdeF1keVRU00ZJfWk4WY"
 
 
 EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
