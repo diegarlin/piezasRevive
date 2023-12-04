@@ -27,7 +27,10 @@
 
     <tfoot>
       <tr>
-        <td> <hr>Estado: <b>{% if pedido.estado_pedido == 'en_espera' %}en espera{% else %}{{pedido.estado_pedido}}{% endif %}</b>
+        <td><hr>
+          {% if user.is_authenticated %} 
+          Estado: <b>{% if pedido.estado_pedido == 'en_espera' %}en espera{% else %}{{pedido.estado_pedido}}{% endif %}</b>
+          {% endif %}
         </br>
           Fecha Entrega Estimada: <b>{{ pedido.fecha_entrega_estimada }}</b>
         </br>
