@@ -63,9 +63,7 @@ def crear_reclamacion_sinloguear(request, pedido_id):
 
         form = ReclamacionForm(request.POST)
         if form.is_valid():
-            usuario = pedido.usuario if pedido.usuario else User.objects.get(username='admin')
             reclamacion = form.save(commit=False)
-            reclamacion.usuario = usuario
             reclamacion.pedido = pedido
             reclamacion.save()
             return redirect('reclamaciones:detalle_reclamacion', reclamacion.id)
