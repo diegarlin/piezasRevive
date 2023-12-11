@@ -38,10 +38,10 @@
             {% endif %}
             <div class="button-container">
                 {% if user.is_authenticated %}
-                    <button class="logout-button" onclick="logout()">Logout</button>
+                    <button class="logout-button" onclick="logout()">Cerrar Sesión</button>
                     <a href="/edit"><span class="username">{{ user.first_name }} {{ user.last_name }}</span></a>
                 {% else %}
-                    <a href="/login"><button class="login-button">Login</button></a>
+                    <a href="/login"><button class="login-button">Iniciar Sesión</button></a>
                     <a href="/register"><button class="register-button">Registro</button></a>
                 {% endif %}
             </div>
