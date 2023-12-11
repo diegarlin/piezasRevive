@@ -13,13 +13,6 @@
 
 1. Abrir un terminal en la carpeta donde se encuentre el archivo .tar, probablemente descargas. Escribir cmd y pulsar intro tal como se ve en las captura.
 
-    
-
-<p id="gdcalert1" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image1.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert2">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image1.png "image_tooltip")
-
 
 2. Escribir estos 2 comandos:
     1. docker load -i piezasRevive.tar 
