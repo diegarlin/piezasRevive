@@ -142,12 +142,12 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default='django-insecure-g%m5ipglj1-v7
 STRIPE_SECRET_KEY = "sk_test_51OJhFNK3zYI6R2PvjjfbNyNlfBDyQQ15mgs8qJJbNKYaQ8FHW05Rps8gjRoXeNlYoAgorfWKX3kKp1fdeF1keVRU00ZJfWk4WY"
 
 
-EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST="smtp.office365.com"
-EMAIL_USE_TLS=True
-EMAIL_PORT=587
-EMAIL_HOST_USER="piezasrevive@outlook.com"
-EMAIL_HOST_PASSWORD="rdwamwrwwuwbudbh8@"
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'piezasrevive@gmail.com'
+EMAIL_HOST_PASSWORD = 'rdwamwrwwuwbudbh'
 # rdwamwrwwuwbudbh8@ outlook
 # rdwamwrwwuwbudbh gmail
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
